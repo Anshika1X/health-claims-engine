@@ -1,0 +1,2732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Automated Health & Insurance Claims Processing Engine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  
+  <style>
+    /* ==========================================================================
+       Modern SaaS Design System & Color Palette
+       ========================================================================== */
+    :root {
+      --primary: #2563eb;
+      --primary-hover: #1d4ed8;
+      --primary-subtle: #eff6ff;
+      --primary-border: #bfdbfe;
+
+      --emerald: #059669;
+      --emerald-dark: #065f46;
+      --emerald-bg: #ecfdf5;
+      --emerald-border: #a7f3d0;
+      --emerald-glow: rgba(16, 185, 129, 0.25);
+
+      --rose: #e11d48;
+      --rose-dark: #9f1239;
+      --rose-bg: #fff1f2;
+      --rose-border: #fecdd3;
+      --rose-glow: rgba(225, 29, 72, 0.25);
+
+      --amber: #d97706;
+      --amber-bg: #fffbeb;
+      --amber-border: #fde68a;
+
+      --dark-navy: #090e1a;
+      --navy-card: #0f172a;
+      --navy-border: #1e293b;
+
+      --bg-canvas: #f8fafc;
+      --bg-surface: #ffffff;
+      --bg-surface-secondary: #f1f5f9;
+      
+      --border-subtle: #e2e8f0;
+      --border-strong: #cbd5e1;
+
+      --text-main: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #64748b;
+      --text-light: #94a3b8;
+
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 22px;
+
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-md: 0 4px 12px -2px rgba(15, 23, 42, 0.08), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
+      --shadow-lg: 0 12px 24px -4px rgba(15, 23, 42, 0.1), 0 4px 12px -2px rgba(15, 23, 42, 0.05);
+      --shadow-glow-emerald: 0 0 24px -4px var(--emerald-glow);
+      --shadow-glow-rose: 0 0 24px -4px var(--rose-glow);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background-color: var(--bg-canvas);
+      color: var(--text-main);
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ==========================================================================
+       Top Navigation Bar
+       ========================================================================== */
+    .top-navbar {
+      background: linear-gradient(180deg, #090e1a 0%, #0c1527 100%);
+      border-bottom: 1px solid #1e293b;
+      color: #ffffff;
+      padding: 0.9rem 1.5rem;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(12px);
+    }
+
+    .navbar-inner {
+      max-width: 1440px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand-group {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .brand-logo-badge {
+      width: 42px;
+      height: 42px;
+      background: linear-gradient(135deg, #2563eb, #06b6d4);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 16px rgba(37, 99, 235, 0.4);
+      color: #ffffff;
+    }
+
+    .brand-text h1 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .brand-version-pill {
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 0.15rem 0.45rem;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 9999px;
+      color: #93c5fd;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .brand-text p {
+      font-size: 0.8rem;
+      color: #94a3b8;
+      font-weight: 400;
+    }
+
+    .navbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .pulse-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.35);
+      color: #34d399;
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.35rem 0.8rem;
+      border-radius: 9999px;
+    }
+
+    .pulse-dot {
+      width: 8px;
+      height: 8px;
+      background: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+      animation: pulseAnim 2s infinite;
+    }
+
+    @keyframes pulseAnim {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(16, 185, 129, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+    }
+
+    .nav-btn {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #e2e8f0;
+      font-family: var(--font-sans);
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 0.45rem 0.9rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      transition: all 0.15s ease;
+    }
+
+    .nav-btn:hover {
+      background: rgba(255, 255, 255, 0.16);
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-1px);
+    }
+
+    /* ==========================================================================
+       Main Workspace Layout
+       ========================================================================== */
+    .app-viewport {
+      max-width: 1440px;
+      width: 100%;
+      margin: 1.5rem auto;
+      padding: 0 1.5rem;
+      flex: 1;
+    }
+
+    /* ==========================================================================
+       KPI Summary Dashboard Cards
+       ========================================================================== */
+    .kpi-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 1.75rem;
+    }
+
+    @media (max-width: 1024px) {
+      .kpi-row { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 640px) {
+      .kpi-row { grid-template-columns: 1fr; }
+    }
+
+    .kpi-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem 1.4rem;
+      box-shadow: var(--shadow-sm);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .kpi-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--border-strong);
+    }
+
+    .kpi-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: var(--card-accent, var(--primary));
+    }
+
+    .kpi-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.6rem;
+    }
+
+    .kpi-title {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .kpi-icon-box {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--primary-subtle);
+      color: var(--primary);
+    }
+
+    .kpi-value {
+      font-size: 1.65rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--text-main);
+      margin-bottom: 0.25rem;
+    }
+
+    .kpi-meta {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .kpi-pill {
+      display: inline-flex;
+      align-items: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+    }
+
+    .kpi-pill.positive { background: var(--emerald-bg); color: var(--emerald-dark); }
+    .kpi-pill.negative { background: var(--rose-bg); color: var(--rose-dark); }
+
+    /* ==========================================================================
+       Two-Column Claims Studio & Adjudication Deck
+       ========================================================================== */
+    .studio-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+      align-items: start;
+    }
+
+    @media (max-width: 992px) {
+      .studio-grid { grid-template-columns: 1fr; }
+    }
+
+    .studio-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-md);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .studio-card-header {
+      padding: 1.25rem 1.6rem;
+      border-bottom: 1px solid var(--border-subtle);
+      background: linear-gradient(180deg, #ffffff 0%, #fbfcfd 100%);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header-main {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .header-icon-pill {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--primary-subtle);
+      color: var(--primary);
+    }
+
+    .studio-card-header h2 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      color: var(--text-main);
+    }
+
+    .studio-card-header p {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-top: 0.1rem;
+    }
+
+    .studio-card-body {
+      padding: 1.6rem;
+    }
+
+    /* Quick Test Presets Carousel */
+    .preset-section {
+      background: #f8fafc;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 0.9rem 1rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .preset-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.6rem;
+    }
+
+    .preset-title {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .preset-chips-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.55rem;
+    }
+
+    @media (max-width: 580px) {
+      .preset-chips-grid { grid-template-columns: 1fr; }
+    }
+
+    .preset-card-btn {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 0.55rem 0.75rem;
+      cursor: pointer;
+      text-align: left;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+      transition: all 0.15s ease;
+      font-family: var(--font-sans);
+    }
+
+    .preset-card-btn:hover {
+      border-color: var(--primary);
+      background: var(--primary-subtle);
+      transform: translateY(-1px);
+      box-shadow: 0 2px 8px rgba(37, 99, 235, 0.12);
+    }
+
+    .preset-btn-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .preset-btn-tag {
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 0.1rem 0.35rem;
+      border-radius: 4px;
+    }
+
+    .preset-btn-sub {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    /* Interactive Live Policy Preview Box */
+    .patient-preview-box {
+      background: #f0fdf4;
+      border: 1.5px solid #bbf7d0;
+      border-radius: var(--radius-md);
+      padding: 0.85rem 1rem;
+      margin-bottom: 1.25rem;
+      display: none;
+      animation: fadeIn 0.2s ease;
+    }
+
+    .patient-preview-box.inactive {
+      background: #fff1f2;
+      border-color: #fecdd3;
+    }
+
+    .preview-flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .preview-info {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .preview-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #059669;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.85rem;
+      font-weight: 700;
+    }
+
+    .patient-preview-box.inactive .preview-avatar {
+      background: #e11d48;
+    }
+
+    .preview-details h4 {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .preview-details span {
+      font-size: 0.76rem;
+      color: var(--text-muted);
+    }
+
+    .preview-badge-status {
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 0.2rem 0.6rem;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    .preview-badge-status.active {
+      background: #dcfce7;
+      color: #15803d;
+      border: 1px solid #86efac;
+    }
+
+    .preview-badge-status.inactive {
+      background: #ffe4e6;
+      color: #be123c;
+      border: 1px solid #fda4af;
+    }
+
+    .preview-metrics-bar {
+      margin-top: 0.65rem;
+      padding-top: 0.65rem;
+      border-top: 1px dashed rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.78rem;
+    }
+
+    .projected-calc {
+      font-weight: 700;
+    }
+
+    /* Form Fields */
+    .form-group {
+      margin-bottom: 1.25rem;
+    }
+
+    .form-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 0.4rem;
+    }
+
+    .form-label .req { color: var(--rose); margin-left: 2px; }
+
+    .input-wrapper {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-icon {
+      position: absolute;
+      left: 0.95rem;
+      color: var(--text-light);
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 0.75rem 0.95rem 0.75rem 2.5rem;
+      border: 1.5px solid var(--border-strong);
+      border-radius: var(--radius-md);
+      font-family: var(--font-sans);
+      font-size: 0.95rem;
+      color: var(--text-main);
+      background: #ffffff;
+      transition: all 0.15s ease;
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+    }
+
+    .quick-amount-row {
+      display: flex;
+      gap: 0.4rem;
+      margin-top: 0.45rem;
+    }
+
+    .quick-amt-btn {
+      background: var(--bg-surface-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 6px;
+      font-size: 0.72rem;
+      font-weight: 600;
+      padding: 0.2rem 0.55rem;
+      cursor: pointer;
+      color: var(--text-secondary);
+      transition: all 0.12s;
+    }
+
+    .quick-amt-btn:hover {
+      background: var(--primary-subtle);
+      color: var(--primary);
+      border-color: var(--primary-border);
+    }
+
+    /* Live Adjudication Warning Bar */
+    .live-warning-bar {
+      border-radius: var(--radius-sm);
+      padding: 0.6rem 0.85rem;
+      margin-bottom: 1.25rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      display: none;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .live-warning-bar.danger {
+      background: var(--rose-bg);
+      border: 1px solid var(--rose-border);
+      color: var(--rose-dark);
+    }
+
+    .live-warning-bar.warning {
+      background: var(--amber-bg);
+      border: 1px solid var(--amber-border);
+      color: #92400e;
+    }
+
+    /* Submit Button */
+    .submit-btn {
+      width: 100%;
+      padding: 0.85rem 1.5rem;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #ffffff;
+      border: none;
+      border-radius: var(--radius-md);
+      font-family: var(--font-sans);
+      font-size: 0.98rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+      transition: all 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .submit-btn:hover:not(:disabled) {
+      background: linear-gradient(135deg, #1d4ed8, #1e40af);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+    }
+
+    .submit-btn:disabled {
+      opacity: 0.65;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    /* Rules info accordion */
+    .rules-badge-info {
+      margin-top: 1.25rem;
+      padding: 0.75rem 1rem;
+      background: #f8fafc;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+    }
+
+    .rules-badge-info summary {
+      cursor: pointer;
+      font-weight: 700;
+      color: var(--text-main);
+      user-select: none;
+    }
+
+    .rules-badge-info ul {
+      margin-top: 0.5rem;
+      padding-left: 1.25rem;
+    }
+
+    .rules-badge-info li {
+      margin-bottom: 0.3rem;
+    }
+
+    /* ==========================================================================
+       Right Column: Live Engine Decision Deck
+       ========================================================================== */
+    .decision-deck {
+      min-height: 520px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .placeholder-state {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 3rem 2rem;
+      border: 2px dashed var(--border-subtle);
+      border-radius: var(--radius-lg);
+      margin: 1.5rem;
+      background: #fafbfc;
+    }
+
+    .radar-orbit {
+      width: 76px;
+      height: 76px;
+      border-radius: 50%;
+      background: var(--primary-subtle);
+      border: 2px solid var(--primary-border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      margin-bottom: 1.25rem;
+      position: relative;
+    }
+
+    .radar-orbit::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 2px solid var(--primary);
+      animation: rippleAnim 2.4s infinite;
+    }
+
+    @keyframes rippleAnim {
+      0% { transform: scale(1); opacity: 0.8; }
+      100% { transform: scale(1.6); opacity: 0; }
+    }
+
+    .placeholder-state h3 {
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 0.35rem;
+    }
+
+    .placeholder-state p {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      max-width: 320px;
+    }
+
+    /* Active Result Voucher / Decision Deck */
+    .result-content-container {
+      display: none;
+      animation: slideUp 0.3s ease;
+      padding: 1.5rem;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(12px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Main Decision Banner */
+    .decision-banner {
+      border-radius: var(--radius-lg);
+      padding: 1.25rem 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.4rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .decision-banner.approved {
+      background: linear-gradient(135deg, #059669, #047857);
+      color: #ffffff;
+      box-shadow: var(--shadow-glow-emerald);
+    }
+
+    .decision-banner.rejected {
+      background: linear-gradient(135deg, #e11d48, #be123c);
+      color: #ffffff;
+      box-shadow: var(--shadow-glow-rose);
+    }
+
+    .banner-left {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .banner-icon-disc {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      border: 2px solid rgba(255, 255, 255, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .banner-text h3 {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .banner-text p {
+      font-size: 0.8rem;
+      opacity: 0.9;
+    }
+
+    .banner-claim-pill {
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      padding: 0.3rem 0.75rem;
+      border-radius: 9999px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    /* Verification Pipeline Stepper */
+    .pipeline-stepper {
+      background: #f8fafc;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1.1rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .pipeline-title {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+
+    .step-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.65rem 0.85rem;
+      border-radius: var(--radius-sm);
+      margin-bottom: 0.4rem;
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      transition: border-color 0.15s;
+    }
+
+    .step-item.passed {
+      border-color: var(--emerald-border);
+      background: var(--emerald-bg);
+    }
+
+    .step-item.failed {
+      border-color: var(--rose-border);
+      background: var(--rose-bg);
+    }
+
+    .step-left {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .step-indicator {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 800;
+    }
+
+    .step-item.passed .step-indicator {
+      background: var(--emerald);
+      color: #ffffff;
+    }
+
+    .step-item.failed .step-indicator {
+      background: var(--rose);
+      color: #ffffff;
+    }
+
+    .step-text h5 {
+      font-size: 0.84rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .step-text p {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+    }
+
+    .step-badge {
+      font-size: 0.68rem;
+      font-weight: 800;
+      padding: 0.15rem 0.5rem;
+      border-radius: 9999px;
+      text-transform: uppercase;
+    }
+
+    .step-item.passed .step-badge { background: #dcfce7; color: #166534; }
+    .step-item.failed .step-badge { background: #ffe4e6; color: #9f1239; }
+
+    /* Coverage Adjustment Visual Meter */
+    .ledger-diff-card {
+      background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 1rem 1.25rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .ledger-title {
+      font-size: 0.72rem;
+      font-weight: 800;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.6rem;
+    }
+
+    .ledger-flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .ledger-column {
+      text-align: center;
+    }
+
+    .ledger-label {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-bottom: 0.15rem;
+    }
+
+    .ledger-amount {
+      font-family: var(--font-mono);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .ledger-amount.green { color: var(--emerald); }
+    .ledger-amount.blue { color: var(--primary); }
+
+    .ledger-arrow-disc {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--text-muted);
+    }
+
+    /* Remarks & Audit Notes */
+    .decision-remarks-card {
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 0.95rem 1.1rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .remarks-heading {
+      font-size: 0.72rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 0.35rem;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .remarks-body {
+      font-size: 0.84rem;
+      color: var(--text-secondary);
+      line-height: 1.4;
+    }
+
+    .deck-actions-row {
+      display: flex;
+      gap: 0.6rem;
+    }
+
+    .action-sub-btn {
+      flex: 1;
+      padding: 0.55rem;
+      background: #ffffff;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      transition: all 0.12s;
+    }
+
+    .action-sub-btn:hover {
+      background: var(--bg-surface-secondary);
+      color: var(--text-main);
+    }
+
+    /* ==========================================================================
+       Interactive Tables & Directory View
+       ========================================================================== */
+    .tables-cluster {
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+    }
+
+    .table-container-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-sm);
+      overflow: hidden;
+    }
+
+    .table-toolbar {
+      padding: 1.15rem 1.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .table-title-area h3 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .table-title-area p {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .table-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .search-input-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .search-input-box input {
+      padding: 0.45rem 0.85rem 0.45rem 2.1rem;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      color: var(--text-main);
+      background: #ffffff;
+      width: 190px;
+      transition: width 0.2s;
+    }
+
+    .search-input-box input:focus {
+      width: 240px;
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 0.7rem;
+      color: var(--text-light);
+      pointer-events: none;
+    }
+
+    .filter-select {
+      padding: 0.45rem 0.75rem;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      background: #ffffff;
+      outline: none;
+    }
+
+    .refresh-mini-btn {
+      padding: 0.45rem 0.8rem;
+      background: #ffffff;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .refresh-mini-btn:hover {
+      background: var(--bg-surface-secondary);
+      color: var(--text-main);
+    }
+
+    .table-responsive {
+      overflow-x: auto;
+    }
+
+    .enterprise-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.86rem;
+    }
+
+    .enterprise-table th {
+      background: #f8fafc;
+      color: var(--text-muted);
+      font-weight: 700;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      padding: 0.75rem 1.25rem;
+      border-bottom: 1px solid var(--border-subtle);
+      white-space: nowrap;
+    }
+
+    .enterprise-table td {
+      padding: 0.85rem 1.25rem;
+      border-bottom: 1px solid #f1f5f9;
+      color: var(--text-main);
+      vertical-align: middle;
+    }
+
+    .enterprise-table tbody tr {
+      transition: background 0.12s ease;
+    }
+
+    .enterprise-table tbody tr:hover {
+      background: #f8fafc;
+    }
+
+    .cell-avatar-flex {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .table-avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
+      color: var(--text-secondary);
+      font-size: 0.78rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .cell-primary-text {
+      font-weight: 700;
+      color: var(--text-main);
+      display: block;
+    }
+
+    .cell-sub-text {
+      font-size: 0.74rem;
+      color: var(--text-muted);
+    }
+
+    .mono-val {
+      font-family: var(--font-mono);
+      font-weight: 600;
+    }
+
+    /* Badges */
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 0.25rem 0.65rem;
+      border-radius: 9999px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .status-pill.active {
+      background: #ecfdf5;
+      color: #047857;
+      border: 1px solid #a7f3d0;
+    }
+
+    .status-pill.inactive {
+      background: #fff1f2;
+      color: #be123c;
+      border: 1px solid #fecdd3;
+    }
+
+    .status-pill.approved {
+      background: #ecfdf5;
+      color: #047857;
+      border: 1px solid #a7f3d0;
+    }
+
+    .status-pill.rejected {
+      background: #fff1f2;
+      color: #be123c;
+      border: 1px solid #fecdd3;
+    }
+
+    .dot-indicator {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    /* Sleek Table Coverage Bar */
+    .gauge-wrapper {
+      width: 140px;
+    }
+
+    .gauge-meta {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .gauge-track {
+      width: 100%;
+      height: 6px;
+      background: #e2e8f0;
+      border-radius: 9999px;
+      overflow: hidden;
+    }
+
+    .gauge-fill {
+      height: 100%;
+      border-radius: 9999px;
+      background: linear-gradient(90deg, #2563eb, #0284c7);
+      transition: width 0.5s ease;
+    }
+
+    .gauge-fill.warning { background: linear-gradient(90deg, #f59e0b, #d97706); }
+    .gauge-fill.danger { background: linear-gradient(90deg, #f43f5e, #e11d48); }
+
+    .table-action-btn {
+      padding: 0.35rem 0.7rem;
+      background: #ffffff;
+      border: 1px solid var(--border-strong);
+      border-radius: var(--radius-sm);
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--primary);
+      cursor: pointer;
+      transition: all 0.12s;
+    }
+
+    .table-action-btn:hover {
+      background: var(--primary-subtle);
+      border-color: var(--primary);
+      transform: translateY(-1px);
+    }
+
+    /* ==========================================================================
+       Adjudication Details Modal
+       ========================================================================== */
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(15, 23, 42, 0.6);
+      backdrop-filter: blur(4px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 2000;
+      padding: 1rem;
+      animation: fadeIn 0.15s ease;
+    }
+
+    .modal-box {
+      background: #ffffff;
+      border-radius: var(--radius-xl);
+      max-width: 600px;
+      width: 100%;
+      box-shadow: 0 20px 40px -8px rgba(0, 0, 0, 0.25);
+      border: 1px solid var(--border-subtle);
+      overflow: hidden;
+      animation: zoomIn 0.2s ease;
+    }
+
+    @keyframes zoomIn {
+      from { transform: scale(0.95); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-header {
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f8fafc;
+    }
+
+    .modal-header h3 {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .close-modal-btn {
+      background: transparent;
+      border: none;
+      font-size: 1.3rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 0.25rem;
+      line-height: 1;
+    }
+
+    .modal-body {
+      padding: 1.5rem;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+
+    .modal-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .modal-item-box {
+      background: #f8fafc;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem;
+    }
+
+    .modal-item-box span {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .modal-item-box strong {
+      font-size: 0.92rem;
+      color: var(--text-main);
+    }
+
+    /* Toast Notification */
+    .toast-container {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      z-index: 3000;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .toast-msg {
+      background: #0f172a;
+      color: #ffffff;
+      padding: 0.85rem 1.25rem;
+      border-radius: var(--radius-md);
+      font-size: 0.84rem;
+      font-weight: 600;
+      box-shadow: 0 10px 25px -4px rgba(0, 0, 0, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      animation: toastIn 0.25s ease;
+      border-left: 4px solid var(--primary);
+    }
+
+    .toast-msg.success { border-left-color: var(--emerald); }
+    .toast-msg.error { border-left-color: var(--rose); }
+
+    @keyframes toastIn {
+      from { transform: translateX(40px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    .footer {
+      border-top: 1px solid var(--border-subtle);
+      background: #ffffff;
+      padding: 1.5rem;
+      text-align: center;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 3rem;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navbar -->
+  <header class="top-navbar">
+    <div class="navbar-inner">
+      <div class="brand-group">
+        <div class="brand-logo-badge">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            <path d="m9 12 2 2 4-4"/>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>
+            Automated Health Claims Engine
+            <span class="brand-version-pill">v2.4 Enterprise</span>
+          </h1>
+          <p>Real-Time Rule Adjudication &bull; Coverage Integrity &bull; SQLite Relational Ledger</p>
+        </div>
+      </div>
+
+      <div class="navbar-actions">
+        <div class="pulse-pill">
+          <span class="pulse-dot"></span>
+          Engine Active
+        </div>
+        <button id="quickDemoBtn" class="nav-btn" title="Run simulated batch demonstration">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Quick Demo
+        </button>
+        <button id="resetDbBtn" class="nav-btn" title="Reset DB to pristine seed data">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
+          Reset DB
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- App Main Content -->
+  <main class="app-viewport">
+
+    <!-- KPI Metrics Dashboard -->
+    <section class="kpi-row">
+      
+      <!-- Card 1: Total Processed Claims -->
+      <div class="kpi-card" style="--card-accent: #2563eb;">
+        <div class="kpi-card-header">
+          <span class="kpi-title">Total Claims Processed</span>
+          <div class="kpi-icon-box">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+          </div>
+        </div>
+        <div class="kpi-value" id="kpiTotalClaims">0</div>
+        <div class="kpi-meta">
+          <span class="kpi-pill positive" id="kpiApprovedBadge">0 Approved</span>
+          <span class="kpi-pill negative" id="kpiRejectedBadge">0 Rejected</span>
+        </div>
+      </div>
+
+      <!-- Card 2: Total Settled Amount -->
+      <div class="kpi-card" style="--card-accent: #059669;">
+        <div class="kpi-card-header">
+          <span class="kpi-title">Settled Payouts</span>
+          <div class="kpi-icon-box" style="background: var(--emerald-bg); color: var(--emerald);">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+          </div>
+        </div>
+        <div class="kpi-value" id="kpiTotalSettled">$0.00</div>
+        <div class="kpi-meta">
+          <span>From <strong id="kpiTotalClaimed">$0.00</strong> requested</span>
+        </div>
+      </div>
+
+      <!-- Card 3: Adjudication Approval Rate -->
+      <div class="kpi-card" style="--card-accent: #8b5cf6;">
+        <div class="kpi-card-header">
+          <span class="kpi-title">Approval Ratio</span>
+          <div class="kpi-icon-box" style="background: #f5f3ff; color: #8b5cf6;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+          </div>
+        </div>
+        <div class="kpi-value" id="kpiApprovalRate">0.0%</div>
+        <div class="kpi-meta">
+          <span>Automated 2-rule verification</span>
+        </div>
+      </div>
+
+      <!-- Card 4: Insured Registry Health -->
+      <div class="kpi-card" style="--card-accent: #06b6d4;">
+        <div class="kpi-card-header">
+          <span class="kpi-title">Active Policy Holders</span>
+          <div class="kpi-icon-box" style="background: #ecfeff; color: #0891b2;">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+        </div>
+        <div class="kpi-value" id="kpiActivePolicies">0 / 0</div>
+        <div class="kpi-meta">
+          <span class="kpi-pill positive">Real-Time Database Sync</span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Claims Processing Studio & Decision Deck -->
+    <div class="studio-grid">
+
+      <!-- Left: Interactive Claim Submission Studio -->
+      <section class="studio-card">
+        
+        <div class="studio-card-header">
+          <div class="header-main">
+            <div class="header-icon-pill">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            </div>
+            <div>
+              <h2>Claims Intake Studio</h2>
+              <p>Submit claims for instantaneous automated policy adjudication</p>
+            </div>
+          </div>
+          <span style="font-size: 0.76rem; font-weight: 700; color: var(--text-muted); background: var(--bg-surface-secondary); padding: 0.25rem 0.6rem; border-radius: 6px;">
+            Step 1 of 2
+          </span>
+        </div>
+
+        <div class="studio-card-body">
+          
+          <!-- One-Click Preset Buttons -->
+          <div class="preset-section">
+            <div class="preset-header">
+              <span class="preset-title">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+                Instant Test Scenarios
+              </span>
+              <span style="font-size: 0.7rem; color: var(--text-muted);">Click to auto-populate</span>
+            </div>
+
+            <div class="preset-chips-grid">
+              <button type="button" class="preset-card-btn" onclick="applyPreset('P101', 'Metro General Hospital', 45000)">
+                <div class="preset-btn-top">
+                  <span>P101 - John Doe</span>
+                  <span class="preset-btn-tag" style="background:#ecfdf5; color:#047857;">Active</span>
+                </div>
+                <span class="preset-btn-sub">Claim $45,000 &bull; Expect Approved</span>
+              </button>
+
+              <button type="button" class="preset-card-btn" onclick="applyPreset('P102', 'Apollo Care Hospital', 30000)">
+                <div class="preset-btn-top">
+                  <span>P102 - Jane Smith</span>
+                  <span class="preset-btn-tag" style="background:#fff1f2; color:#be123c;">Inactive</span>
+                </div>
+                <span class="preset-btn-sub">Claim $30,000 &bull; Expect Rule 1 Reject</span>
+              </button>
+
+              <button type="button" class="preset-card-btn" onclick="applyPreset('P103', 'City Memorial Hospital', 85000)">
+                <div class="preset-btn-top">
+                  <span>P103 - Robert Taylor</span>
+                  <span class="preset-btn-tag" style="background:#fffbeb; color:#b45309;">Limit $50k</span>
+                </div>
+                <span class="preset-btn-sub">Claim $85,000 &bull; Expect Rule 2 Reject</span>
+              </button>
+
+              <button type="button" class="preset-card-btn" onclick="applyPreset('P104', 'St. Jude Children Hospital', 150000)">
+                <div class="preset-btn-top">
+                  <span>P104 - Emily Davis</span>
+                  <span class="preset-btn-tag" style="background:#ecfdf5; color:#047857;">Active $1M</span>
+                </div>
+                <span class="preset-btn-sub">Claim $150,000 &bull; Expect Approved</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Live Policy Auto-Preview (Dynamic feedback as user types) -->
+          <div id="patientPreviewBox" class="patient-preview-box">
+            <div class="preview-flex">
+              <div class="preview-info">
+                <div class="preview-avatar" id="prevAvatar">JD</div>
+                <div class="preview-details">
+                  <h4 id="prevName">John Doe</h4>
+                  <span id="prevIdSub">Patient ID: P101</span>
+                </div>
+              </div>
+              <span class="preview-badge-status active" id="prevBadge">Active Policy</span>
+            </div>
+            
+            <div class="preview-metrics-bar">
+              <span>Available: <strong class="mono-val" id="prevAvailable">$500,000.00</strong></span>
+              <span class="projected-calc" id="prevProjected">Est. After: $500,000.00</span>
+            </div>
+          </div>
+
+          <!-- Claim Form -->
+          <form id="claimForm">
+            
+            <!-- Patient ID Input -->
+            <div class="form-group">
+              <label class="form-label" for="patientId">
+                <span>Patient ID <span class="req">*</span></span>
+                <span style="font-size: 0.72rem; color: var(--text-muted); font-weight: normal;">e.g., P101, P102, P103, P104</span>
+              </label>
+              <div class="input-wrapper">
+                <div class="input-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                </div>
+                <input 
+                  type="text" 
+                  id="patientId" 
+                  name="patientId" 
+                  class="form-control" 
+                  placeholder="Enter Registered Patient ID" 
+                  required 
+                  autocomplete="off"
+                >
+              </div>
+            </div>
+
+            <!-- Hospital / Healthcare Provider -->
+            <div class="form-group">
+              <label class="form-label" for="hospitalName">
+                <span>Healthcare Provider / Hospital <span class="req">*</span></span>
+              </label>
+              <div class="input-wrapper">
+                <div class="input-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+                </div>
+                <input 
+                  type="text" 
+                  id="hospitalName" 
+                  name="hospitalName" 
+                  class="form-control" 
+                  placeholder="e.g., Metro General Hospital" 
+                  required 
+                  autocomplete="off"
+                >
+              </div>
+            </div>
+
+            <!-- Claim Amount Input with Quick Addition Chips -->
+            <div class="form-group">
+              <label class="form-label" for="claimAmount">
+                <span>Claim Amount ($ USD) <span class="req">*</span></span>
+                <span style="font-size: 0.72rem; color: var(--text-muted); font-weight: normal;">Numeric format</span>
+              </label>
+              <div class="input-wrapper">
+                <div class="input-icon" style="font-weight: 800; font-family: var(--font-mono); font-size: 1.1rem; color: var(--text-secondary);">
+                  $
+                </div>
+                <input 
+                  type="number" 
+                  id="claimAmount" 
+                  name="claimAmount" 
+                  class="form-control mono-val" 
+                  placeholder="50000" 
+                  min="1" 
+                  step="any" 
+                  required
+                >
+              </div>
+
+              <!-- Quick Increment / Preset Chips -->
+              <div class="quick-amount-row">
+                <button type="button" class="quick-amt-btn" onclick="setClaimAmount(10000)">$10,000</button>
+                <button type="button" class="quick-amt-btn" onclick="setClaimAmount(25000)">$25,000</button>
+                <button type="button" class="quick-amt-btn" onclick="setClaimAmount(50000)">$50,000</button>
+                <button type="button" class="quick-amt-btn" onclick="setClaimAmount(100000)">$100,000</button>
+                <button type="button" class="quick-amt-btn" onclick="setMaxAvailableAmount()">Use Max Limit</button>
+              </div>
+            </div>
+
+            <!-- Dynamic Live Alert Bar -->
+            <div id="liveWarningBar" class="live-warning-bar">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+              <span id="liveWarningText">Warning text</span>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" id="submitBtn" class="submit-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+              <span class="btn-label">Execute Automated Adjudication</span>
+              <span class="spinner" style="display: none;"></span>
+            </button>
+
+          </form>
+
+          <!-- Collapsible Rules Info -->
+          <details class="rules-badge-info">
+            <summary>
+              Engine Business Rules Spec (v2.4)
+            </summary>
+            <ul>
+              <li><strong>Rule 1 (Status Integrity):</strong> Patient must have status <code>'Active'</code> in the database. Inactive policies reject immediately.</li>
+              <li><strong>Rule 2 (Coverage Ceiling):</strong> Claim amount cannot exceed current remaining limit.</li>
+              <li><strong>Settlement:</strong> If approved, balance is subtracted atomically via SQLite transaction and logged.</li>
+            </ul>
+          </details>
+
+        </div>
+      </section>
+
+      <!-- Right: Live Engine Decision Deck -->
+      <section class="studio-card decision-deck">
+        
+        <div class="studio-card-header">
+          <div class="header-main">
+            <div class="header-icon-pill" style="background: #fdf2f8; color: #db2777;">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <div>
+              <h2>Adjudication Decision Deck</h2>
+              <p>Real-time audit verification & settlement ledger</p>
+            </div>
+          </div>
+          <span style="font-size: 0.76rem; font-weight: 700; color: var(--text-muted); background: var(--bg-surface-secondary); padding: 0.25rem 0.6rem; border-radius: 6px;">
+            Step 2 of 2
+          </span>
+        </div>
+
+        <!-- Initial Idle Placeholder State -->
+        <div id="idleState" class="placeholder-state">
+          <div class="radar-orbit">
+            <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m10 15 5-3-5-3v6Z"/></svg>
+          </div>
+          <h3>Awaiting Adjudication Stream</h3>
+          <p>Submit a claim from the Intake Studio or click an instant test scenario to initiate real-time multi-rule verification.</p>
+        </div>
+
+        <!-- Live Evaluated Result Container -->
+        <div id="resultContainer" class="result-content-container">
+          
+          <!-- Banner Result -->
+          <div id="decisionBanner" class="decision-banner approved">
+            <div class="banner-left">
+              <div class="banner-icon-disc" id="bannerIcon">✓</div>
+              <div class="banner-text">
+                <h3 id="bannerTitle">CLAIM APPROVED</h3>
+                <p id="bannerSub">Settlement completed & coverage adjusted</p>
+              </div>
+            </div>
+            <div class="banner-claim-pill" id="bannerClaimTag">#CLAIM-2</div>
+          </div>
+
+          <!-- Claim Overview Strip -->
+          <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; margin-bottom: 1.25rem;">
+            <div style="background: #f8fafc; border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.7rem 0.85rem;">
+              <span style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; display: block;">Patient</span>
+              <strong style="font-size: 0.95rem;" id="resPatientName">John Doe (P101)</strong>
+            </div>
+            <div style="background: #f8fafc; border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.7rem 0.85rem;">
+              <span style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; display: block;">Claim Amount</span>
+              <strong style="font-size: 1.05rem; color: var(--primary);" class="mono-val" id="resAmount">$50,000.00</strong>
+            </div>
+          </div>
+
+          <!-- 4-Step Verification Pipeline -->
+          <div class="pipeline-stepper">
+            <div class="pipeline-title">Rule Verification Pipeline</div>
+
+            <!-- Step 1: Input Structure -->
+            <div class="step-item passed" id="pipeStep0">
+              <div class="step-left">
+                <div class="step-indicator">✓</div>
+                <div class="step-text">
+                  <h5>Input Payload Sanitization</h5>
+                  <p>Provider ID, Hospital name & numeric amount validated</p>
+                </div>
+              </div>
+              <span class="step-badge">PASS</span>
+            </div>
+
+            <!-- Step 2: Rule 1 Policy Active Check -->
+            <div class="step-item passed" id="pipeStep1">
+              <div class="step-left">
+                <div class="step-indicator" id="step1Indicator">✓</div>
+                <div class="step-text">
+                  <h5>Rule 1: Policy Status Verification</h5>
+                  <p id="step1Desc">Policy is Active in master database</p>
+                </div>
+              </div>
+              <span class="step-badge" id="step1Badge">PASS</span>
+            </div>
+
+            <!-- Step 3: Rule 2 Coverage Limit Check -->
+            <div class="step-item passed" id="pipeStep2">
+              <div class="step-left">
+                <div class="step-indicator" id="step2Indicator">✓</div>
+                <div class="step-text">
+                  <h5>Rule 2: Remaining Coverage Limit</h5>
+                  <p id="step2Desc">Requested amount is within remaining balance</p>
+                </div>
+              </div>
+              <span class="step-badge" id="step2Badge">PASS</span>
+            </div>
+
+            <!-- Step 4: Final Settlement Ledger -->
+            <div class="step-item passed" id="pipeStep3">
+              <div class="step-left">
+                <div class="step-indicator" id="step3Indicator">✓</div>
+                <div class="step-text">
+                  <h5>Ledger Commitment</h5>
+                  <p id="step3Desc">Transaction persisted to SQLite audit trail</p>
+                </div>
+              </div>
+              <span class="step-badge" id="step3Badge">COMMITTED</span>
+            </div>
+          </div>
+
+          <!-- Coverage Adjustment Diff Meter -->
+          <div class="ledger-diff-card">
+            <div class="ledger-title">Coverage Limit Reconciliation</div>
+            <div class="ledger-flex">
+              <div class="ledger-column">
+                <div class="ledger-label">Prior Coverage</div>
+                <div class="ledger-amount" id="resPriorLimit">$500,000.00</div>
+              </div>
+              <div class="ledger-arrow-disc">➔</div>
+              <div class="ledger-column">
+                <div class="ledger-label">Deduction</div>
+                <div class="ledger-amount blue" id="resDeduction">-$50,000.00</div>
+              </div>
+              <div class="ledger-arrow-disc">➔</div>
+              <div class="ledger-column">
+                <div class="ledger-label">Remaining Coverage</div>
+                <div class="ledger-amount green" id="resNewLimit">$450,000.00</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Official Remarks Note -->
+          <div class="decision-remarks-card">
+            <div class="remarks-heading">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              Adjudication Remarks
+            </div>
+            <div class="remarks-body" id="resRemarks">
+              Claim approved successfully.
+            </div>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="deck-actions-row">
+            <button type="button" class="action-sub-btn" onclick="copyCurrentResultJson()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              Copy JSON
+            </button>
+            <button type="button" class="action-sub-btn" onclick="openModalForLatestClaim()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+              Full Slip
+            </button>
+            <button type="button" class="action-sub-btn" onclick="resetStudioForm()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+              New Claim
+            </button>
+          </div>
+
+        </div>
+
+      </section>
+
+    </div>
+
+    <!-- Bottom Tables Section: Registered Insured Patients & Audit Trail -->
+    <div class="tables-cluster">
+
+      <!-- Patient Policies Table -->
+      <section class="table-container-card">
+        <div class="table-toolbar">
+          <div class="table-title-area">
+            <h3>Registered Policy Holders Directory</h3>
+            <p>Live synchronized policy database. Remaining coverage adapts after every approved settlement.</p>
+          </div>
+          <div class="table-controls">
+            <div class="search-input-box">
+              <span class="search-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              </span>
+              <input type="text" id="patientSearchInput" placeholder="Filter patients..." oninput="filterPatientsTable()">
+            </div>
+            <button class="refresh-mini-btn" onclick="loadPatients(true)">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+              Refresh
+            </button>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="enterprise-table" id="patientsTable">
+            <thead>
+              <tr>
+                <th>Patient Details</th>
+                <th>Policy Status</th>
+                <th>Remaining Coverage</th>
+                <th>Total Policy Limit</th>
+                <th>Coverage Utilization</th>
+                <th>Intake Action</th>
+              </tr>
+            </thead>
+            <tbody id="patientsTableBody">
+              <tr><td colspan="6" style="text-align: center; color: var(--text-muted);">Syncing patient database...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- Claims Audit History Table -->
+      <section class="table-container-card">
+        <div class="table-toolbar">
+          <div class="table-title-area">
+            <h3>Claims Adjudication Audit Log</h3>
+            <p>Complete historical record of all processed claims with reasons and timestamps.</p>
+          </div>
+          <div class="table-controls">
+            <select class="filter-select" id="claimStatusFilter" onchange="filterClaimsTable()">
+              <option value="ALL">All Statuses</option>
+              <option value="Approved">Approved Only</option>
+              <option value="Rejected">Rejected Only</option>
+            </select>
+            <div class="search-input-box">
+              <span class="search-icon">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              </span>
+              <input type="text" id="claimsSearchInput" placeholder="Filter hospital or patient..." oninput="filterClaimsTable()">
+            </div>
+            <button class="refresh-mini-btn" onclick="loadClaims(true)">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
+              Refresh
+            </button>
+          </div>
+        </div>
+
+        <div class="table-responsive">
+          <table class="enterprise-table" id="claimsTable">
+            <thead>
+              <tr>
+                <th>Claim Ref</th>
+                <th>Timestamp</th>
+                <th>Insured Patient</th>
+                <th>Healthcare Provider</th>
+                <th>Amount</th>
+                <th>Adjudication</th>
+                <th>Rule Evaluation Details</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody id="claimsTableBody">
+              <tr><td colspan="8" style="text-align: center; color: var(--text-muted);">Syncing claims transaction log...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+    </div>
+
+  </main>
+
+  <!-- Detailed Claim Slip Modal -->
+  <div id="claimModal" class="modal-backdrop" onclick="closeModalOnBackdrop(event)">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div>
+          <h3 id="modalTitle">Claim Adjudication Slip</h3>
+          <span style="font-size: 0.75rem; color: var(--text-muted);" id="modalSubtitle">Official Record</span>
+        </div>
+        <button class="close-modal-btn" onclick="closeModal()">&times;</button>
+      </div>
+
+      <div class="modal-body" id="modalBody">
+        <!-- Injected via JavaScript -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification System -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <p>Automated Health & Insurance Claims Processing Engine &bull; Enterprise Edition &bull; Python Flask + SQLite</p>
+  </footer>
+
+  <!-- Complete Frontend Client Controller -->
+  <script>
+    // Global in-memory cache for live searching & instant preview
+    let cachedPatients = [];
+    let cachedClaims = [];
+    let latestResult = null;
+
+    document.addEventListener("DOMContentLoaded", () => {
+      // Load initial state
+      loadStats();
+      loadPatients();
+      loadClaims();
+
+      // Form listener
+      const claimForm = document.getElementById("claimForm");
+      if (claimForm) {
+        claimForm.addEventListener("submit", handleClaimSubmission);
+      }
+
+      // Live Patient lookup listeners for instantaneous preview
+      const patientIdInput = document.getElementById("patientId");
+      if (patientIdInput) {
+        patientIdInput.addEventListener("input", onPatientIdInput);
+      }
+
+      const claimAmountInput = document.getElementById("claimAmount");
+      if (claimAmountInput) {
+        claimAmountInput.addEventListener("input", onClaimAmountInput);
+      }
+
+      // Reset DB Button
+      const resetDbBtn = document.getElementById("resetDbBtn");
+      if (resetDbBtn) {
+        resetDbBtn.addEventListener("click", handleDatabaseReset);
+      }
+
+      // Quick Demo Button
+      const quickDemoBtn = document.getElementById("quickDemoBtn");
+      if (quickDemoBtn) {
+        quickDemoBtn.addEventListener("click", runQuickDemoSimulation);
+      }
+    });
+
+    // Helper: Currency Formatter
+    function formatCurrency(amount) {
+      const num = Number(amount) || 0;
+      return new Intl.NumberFormat("en-US", {
+        style: "currency",
+        currency: "USD",
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      }).format(num);
+    }
+
+    // Helper: Toast Notifications
+    function showToast(message, type = "success") {
+      const container = document.getElementById("toastContainer");
+      if (!container) return;
+
+      const toast = document.createElement("div");
+      toast.className = `toast-msg ${type}`;
+      toast.innerHTML = `
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          ${type === "success" 
+            ? '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>' 
+            : '<circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>'}
+        </svg>
+        <span>${message}</span>
+      `;
+      container.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.opacity = "0";
+        toast.style.transform = "translateX(40px)";
+        toast.style.transition = "all 0.3s ease";
+        setTimeout(() => toast.remove(), 300);
+      }, 3500);
+    }
+
+    // Load KPI Stats
+    async function loadStats() {
+      try {
+        const response = await fetch("/api/stats");
+        const data = await response.json();
+
+        if (data.success) {
+          document.getElementById("kpiTotalClaims").textContent = data.total_claims;
+          document.getElementById("kpiApprovedBadge").textContent = `${data.approved_claims} Approved`;
+          document.getElementById("kpiRejectedBadge").textContent = `${data.rejected_claims} Rejected`;
+
+          document.getElementById("kpiTotalSettled").textContent = formatCurrency(data.total_amount_approved);
+          document.getElementById("kpiTotalClaimed").textContent = formatCurrency(data.total_amount_claimed);
+
+          document.getElementById("kpiApprovalRate").textContent = `${data.approval_rate}%`;
+          document.getElementById("kpiActivePolicies").textContent = `${data.active_policies} / ${data.total_patients}`;
+        }
+      } catch (err) {
+        console.warn("Could not load stats:", err);
+      }
+    }
+
+    // Apply Quick Test Preset
+    function applyPreset(patientId, hospital, amount) {
+      document.getElementById("patientId").value = patientId;
+      document.getElementById("hospitalName").value = hospital;
+      document.getElementById("claimAmount").value = amount;
+
+      onPatientIdInput();
+      onClaimAmountInput();
+
+      showToast(`Selected Preset for ${patientId}`);
+    }
+
+    function setClaimAmount(amount) {
+      document.getElementById("claimAmount").value = amount;
+      onClaimAmountInput();
+    }
+
+    function setMaxAvailableAmount() {
+      const patientId = document.getElementById("patientId").value.trim().toUpperCase();
+      const patient = cachedPatients.find(p => p.patient_id === patientId);
+      if (patient) {
+        document.getElementById("claimAmount").value = patient.coverage_limit;
+        onClaimAmountInput();
+      } else {
+        alert("Please enter or select a valid Patient ID first.");
+      }
+    }
+
+    // Instant Patient Lookup Preview
+    function onPatientIdInput() {
+      const input = document.getElementById("patientId");
+      const pId = input.value.trim().toUpperCase();
+      const previewBox = document.getElementById("patientPreviewBox");
+
+      if (!pId) {
+        previewBox.style.display = "none";
+        hideLiveWarning();
+        return;
+      }
+
+      const patient = cachedPatients.find(p => p.patient_id === pId);
+
+      if (patient) {
+        previewBox.style.display = "block";
+        const isInactive = (patient.policy_status !== "Active");
+        previewBox.className = `patient-preview-box ${isInactive ? "inactive" : ""}`;
+
+        const initials = patient.name.split(" ").map(n => n[0]).join("");
+        document.getElementById("prevAvatar").textContent = initials;
+        document.getElementById("prevName").textContent = patient.name;
+        document.getElementById("prevIdSub").textContent = `Patient ID: ${patient.patient_id}`;
+        
+        const badge = document.getElementById("prevBadge");
+        badge.textContent = `${patient.policy_status} Policy`;
+        badge.className = `preview-badge-status ${patient.policy_status.toLowerCase()}`;
+
+        document.getElementById("prevAvailable").textContent = formatCurrency(patient.coverage_limit);
+
+        onClaimAmountInput();
+      } else {
+        previewBox.style.display = "none";
+        hideLiveWarning();
+      }
+    }
+
+    function onClaimAmountInput() {
+      const pId = document.getElementById("patientId").value.trim().toUpperCase();
+      const amt = parseFloat(document.getElementById("claimAmount").value);
+      const patient = cachedPatients.find(p => p.patient_id === pId);
+
+      const warningBar = document.getElementById("liveWarningBar");
+      const warningText = document.getElementById("liveWarningText");
+      const projectedCalc = document.getElementById("prevProjected");
+
+      if (!patient) {
+        hideLiveWarning();
+        return;
+      }
+
+      // Check Rule 1 live
+      if (patient.policy_status !== "Active") {
+        warningBar.style.display = "flex";
+        warningBar.className = "live-warning-bar danger";
+        warningText.textContent = "Policy is Inactive. This claim will be rejected under Rule 1.";
+        projectedCalc.textContent = "Policy Inactive";
+        projectedCalc.style.color = "var(--rose)";
+        return;
+      }
+
+      if (!isNaN(amt) && amt > 0) {
+        const remaining = patient.coverage_limit - amt;
+
+        if (remaining < 0) {
+          warningBar.style.display = "flex";
+          warningBar.className = "live-warning-bar danger";
+          warningText.textContent = `Claim exceeds remaining coverage by ${formatCurrency(Math.abs(remaining))}. Will be rejected under Rule 2.`;
+          projectedCalc.textContent = `Exceeds by ${formatCurrency(Math.abs(remaining))}`;
+          projectedCalc.style.color = "var(--rose)";
+        } else {
+          hideLiveWarning();
+          projectedCalc.textContent = `Est. After: ${formatCurrency(remaining)}`;
+          projectedCalc.style.color = "var(--emerald)";
+        }
+      } else {
+        hideLiveWarning();
+        projectedCalc.textContent = `Available: ${formatCurrency(patient.coverage_limit)}`;
+        projectedCalc.style.color = "var(--text-main)";
+      }
+    }
+
+    function hideLiveWarning() {
+      const warningBar = document.getElementById("liveWarningBar");
+      if (warningBar) warningBar.style.display = "none";
+    }
+
+    // Submit Claim via Fetch API
+    async function handleClaimSubmission(e) {
+      e.preventDefault();
+
+      const submitBtn = document.getElementById("submitBtn");
+      const btnLabel = submitBtn.querySelector(".btn-label");
+      const spinner = submitBtn.querySelector(".spinner");
+
+      const patientId = document.getElementById("patientId").value.trim().toUpperCase();
+      const hospitalName = document.getElementById("hospitalName").value.trim();
+      const claimAmount = parseFloat(document.getElementById("claimAmount").value);
+
+      if (!patientId || !hospitalName || isNaN(claimAmount) || claimAmount <= 0) {
+        alert("Please enter a valid Patient ID, Provider Name, and Claim Amount.");
+        return;
+      }
+
+      submitBtn.disabled = true;
+      btnLabel.textContent = "Adjudicating Rules...";
+      spinner.style.display = "inline-block";
+
+      try {
+        const response = await fetch("/api/claims/process", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            patient_id: patientId,
+            hospital_name: hospitalName,
+            claim_amount: claimAmount
+          })
+        });
+
+        const result = await response.json();
+
+        if (!response.ok && !result.rule_evaluations) {
+          throw new Error(result.error || "Processing failed.");
+        }
+
+        latestResult = result;
+
+        // Render Decision Deck
+        renderDecisionDeck(result);
+
+        // Show toast
+        if (result.status === "Approved") {
+          showToast(`Claim #${result.claim_id} Approved! ${formatCurrency(result.claim_amount)}`, "success");
+        } else {
+          showToast(`Claim Rejected: ${result.remarks}`, "error");
+        }
+
+        // Refresh live stats and tables
+        loadStats();
+        loadPatients();
+        loadClaims();
+
+      } catch (error) {
+        console.error("Submission error:", error);
+        showToast(`Error: ${error.message}`, "error");
+      } finally {
+        submitBtn.disabled = false;
+        btnLabel.textContent = "Execute Automated Adjudication";
+        spinner.style.display = "none";
+      }
+    }
+
+    // Render the Dynamic Right-hand Decision Deck
+    function renderDecisionDeck(res) {
+      const idleState = document.getElementById("idleState");
+      const resultContainer = document.getElementById("resultContainer");
+
+      if (idleState) idleState.style.display = "none";
+      if (resultContainer) resultContainer.style.display = "block";
+
+      const isApproved = (res.status === "Approved");
+
+      // Banner styling
+      const banner = document.getElementById("decisionBanner");
+      const icon = document.getElementById("bannerIcon");
+      const title = document.getElementById("bannerTitle");
+      const sub = document.getElementById("bannerSub");
+      const tag = document.getElementById("bannerClaimTag");
+
+      banner.className = `decision-banner ${isApproved ? "approved" : "rejected"}`;
+      icon.textContent = isApproved ? "✓" : "✕";
+      title.textContent = isApproved ? "CLAIM APPROVED & SETTLED" : "CLAIM REJECTED BY ENGINE";
+      sub.textContent = isApproved 
+        ? "All policy business rules passed. Settlement applied." 
+        : "Failed one or more business rules. Zero deduction applied.";
+      tag.textContent = res.claim_id ? `#CLAIM-${res.claim_id}` : "AUDIT ENTRY";
+
+      // Overview details
+      document.getElementById("resPatientName").textContent = `${res.patient_name || "Unknown"} (${res.patient_id})`;
+      document.getElementById("resAmount").textContent = formatCurrency(res.claim_amount);
+
+      // Rule 1 Step
+      const r1 = res.rule_evaluations?.rule_1_policy_active;
+      const step1 = document.getElementById("pipeStep1");
+      const step1Ind = document.getElementById("step1Indicator");
+      const step1Badge = document.getElementById("step1Badge");
+      const step1Desc = document.getElementById("step1Desc");
+
+      if (r1?.passed) {
+        step1.className = "step-item passed";
+        step1Ind.textContent = "✓";
+        step1Badge.textContent = "PASS";
+        step1Desc.textContent = `Status: ${r1.status} (Verified Active in master database)`;
+      } else {
+        step1.className = "step-item failed";
+        step1Ind.textContent = "✕";
+        step1Badge.textContent = "FAIL";
+        step1Desc.textContent = r1?.message || "Policy is Inactive.";
+      }
+
+      // Rule 2 Step
+      const r2 = res.rule_evaluations?.rule_2_within_limit;
+      const step2 = document.getElementById("pipeStep2");
+      const step2Ind = document.getElementById("step2Indicator");
+      const step2Badge = document.getElementById("step2Badge");
+      const step2Desc = document.getElementById("step2Desc");
+
+      if (r2?.passed) {
+        step2.className = "step-item passed";
+        step2Ind.textContent = "✓";
+        step2Badge.textContent = "PASS";
+        step2Desc.textContent = `Amount ${formatCurrency(r2.claim_amount)} is within limit ${formatCurrency(r2.available_limit)}`;
+      } else {
+        step2.className = "step-item failed";
+        step2Ind.textContent = "✕";
+        step2Badge.textContent = "FAIL";
+        step2Desc.textContent = r2?.message || "Claim exceeds coverage limit.";
+      }
+
+      // Step 3 Settlement Commitment
+      const step3 = document.getElementById("pipeStep3");
+      const step3Ind = document.getElementById("step3Indicator");
+      const step3Badge = document.getElementById("step3Badge");
+      const step3Desc = document.getElementById("step3Desc");
+
+      if (isApproved) {
+        step3.className = "step-item passed";
+        step3Ind.textContent = "✓";
+        step3Badge.textContent = "COMMITTED";
+        step3Desc.textContent = "SQLite database updated with new coverage balance";
+      } else {
+        step3.className = "step-item failed";
+        step3Ind.textContent = "—";
+        step3Badge.textContent = "SKIPPED";
+        step3Desc.textContent = "Coverage balance left unmodified in database";
+      }
+
+      // Ledger Diff
+      document.getElementById("resPriorLimit").textContent = formatCurrency(res.previous_coverage);
+      document.getElementById("resDeduction").textContent = isApproved 
+        ? `-${formatCurrency(res.claim_amount)}` 
+        : "$0.00";
+      document.getElementById("resNewLimit").textContent = formatCurrency(res.remaining_coverage);
+
+      // Remarks
+      document.getElementById("resRemarks").textContent = res.remarks || "--";
+    }
+
+    // Copy JSON to clipboard
+    function copyCurrentResultJson() {
+      if (!latestResult) return;
+      navigator.clipboard.writeText(JSON.stringify(latestResult, null, 2))
+        .then(() => showToast("Claim JSON copied to clipboard!"))
+        .catch(() => alert("Failed to copy JSON."));
+    }
+
+    // Reset Studio Form
+    function resetStudioForm() {
+      document.getElementById("claimForm").reset();
+      document.getElementById("patientPreviewBox").style.display = "none";
+      hideLiveWarning();
+      document.getElementById("patientId").focus();
+    }
+
+    // Select a patient directly from the Table
+    function selectPatientFromTable(pId) {
+      document.getElementById("patientId").value = pId;
+      onPatientIdInput();
+      document.getElementById("hospitalName").focus();
+      window.scrollTo({ top: 120, behavior: "smooth" });
+    }
+
+    // Fetch and populate registered patients
+    async function loadPatients(notify = false) {
+      const tbody = document.getElementById("patientsTableBody");
+      try {
+        const response = await fetch("/api/patients");
+        const data = await response.json();
+
+        if (data.success && data.patients) {
+          cachedPatients = data.patients;
+          renderPatientsTable(cachedPatients);
+          if (notify) showToast("Patient registry refreshed");
+        }
+      } catch (err) {
+        console.error("Failed to load patients:", err);
+      }
+    }
+
+    function renderPatientsTable(list) {
+      const tbody = document.getElementById("patientsTableBody");
+      if (!tbody) return;
+
+      if (!list || list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 1.5rem;">No matching patients found.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = list.map(p => {
+        const rem = Number(p.coverage_limit);
+        const init = Number(p.initial_coverage);
+        const pct = init > 0 ? Math.max(0, Math.min(100, Math.round((rem / init) * 100))) : 0;
+
+        let fillClass = "";
+        if (pct <= 20) fillClass = "danger";
+        else if (pct <= 50) fillClass = "warning";
+
+        const isActive = (p.policy_status === "Active");
+        const initials = p.name.split(" ").map(n => n[0]).join("");
+
+        return `
+          <tr>
+            <td>
+              <div class="cell-avatar-flex">
+                <div class="table-avatar">${initials}</div>
+                <div>
+                  <span class="cell-primary-text">${p.name}</span>
+                  <span class="cell-sub-text mono-val">${p.patient_id}</span>
+                </div>
+              </div>
+            </td>
+            <td>
+              <span class="status-pill ${isActive ? "active" : "inactive"}">
+                <span class="dot-indicator"></span>
+                ${p.policy_status}
+              </span>
+            </td>
+            <td><strong class="mono-val">${formatCurrency(p.coverage_limit)}</strong></td>
+            <td><span class="mono-val" style="color: var(--text-muted);">${formatCurrency(p.initial_coverage)}</span></td>
+            <td>
+              <div class="gauge-wrapper">
+                <div class="gauge-meta">
+                  <span>${pct}% balance</span>
+                </div>
+                <div class="gauge-track">
+                  <div class="gauge-fill ${fillClass}" style="width: ${pct}%"></div>
+                </div>
+              </div>
+            </td>
+            <td>
+              <button type="button" class="table-action-btn" onclick="selectPatientFromTable('${p.patient_id}')">
+                + File Claim
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    function filterPatientsTable() {
+      const query = document.getElementById("patientSearchInput").value.trim().toLowerCase();
+      if (!query) {
+        renderPatientsTable(cachedPatients);
+        return;
+      }
+      const filtered = cachedPatients.filter(p => 
+        p.patient_id.toLowerCase().includes(query) ||
+        p.name.toLowerCase().includes(query) ||
+        p.policy_status.toLowerCase().includes(query)
+      );
+      renderPatientsTable(filtered);
+    }
+
+    // Fetch and populate claims log
+    async function loadClaims(notify = false) {
+      const tbody = document.getElementById("claimsTableBody");
+      try {
+        const response = await fetch("/api/claims");
+        const data = await response.json();
+
+        if (data.success && data.claims) {
+          cachedClaims = data.claims;
+          renderClaimsTable(cachedClaims);
+          if (notify) showToast("Claims transaction log refreshed");
+        }
+      } catch (err) {
+        console.error("Failed to load claims:", err);
+      }
+    }
+
+    function renderClaimsTable(list) {
+      const tbody = document.getElementById("claimsTableBody");
+      if (!tbody) return;
+
+      if (!list || list.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; color: var(--text-muted); padding: 1.5rem;">No claims recorded yet.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = list.map(c => {
+        const isApproved = (c.status === "Approved");
+
+        return `
+          <tr>
+            <td><strong class="mono-val">#${c.claim_id}</strong></td>
+            <td style="font-size: 0.78rem; color: var(--text-muted); white-space: nowrap;">${c.created_at}</td>
+            <td>
+              <span class="cell-primary-text">${c.patient_name || "Unknown"}</span>
+              <span class="cell-sub-text mono-val">${c.patient_id}</span>
+            </td>
+            <td><strong>${c.hospital_name}</strong></td>
+            <td><strong class="mono-val" style="color: ${isApproved ? 'var(--emerald)' : 'var(--text-main)'};">${formatCurrency(c.claim_amount)}</strong></td>
+            <td>
+              <span class="status-pill ${isApproved ? "approved" : "rejected"}">
+                <span class="dot-indicator"></span>
+                ${c.status}
+              </span>
+            </td>
+            <td style="font-size: 0.8rem; max-width: 280px; line-height: 1.35; color: var(--text-secondary);">
+              ${c.remarks}
+            </td>
+            <td>
+              <button type="button" class="table-action-btn" onclick="openClaimModalById(${c.claim_id})">
+                View Slip
+              </button>
+            </td>
+          </tr>
+        `;
+      }).join("");
+    }
+
+    function filterClaimsTable() {
+      const statusFilter = document.getElementById("claimStatusFilter").value;
+      const query = document.getElementById("claimsSearchInput").value.trim().toLowerCase();
+
+      let filtered = cachedClaims;
+
+      if (statusFilter !== "ALL") {
+        filtered = filtered.filter(c => c.status === statusFilter);
+      }
+
+      if (query) {
+        filtered = filtered.filter(c => 
+          (c.patient_name && c.patient_name.toLowerCase().includes(query)) ||
+          c.patient_id.toLowerCase().includes(query) ||
+          c.hospital_name.toLowerCase().includes(query) ||
+          c.remarks.toLowerCase().includes(query)
+        );
+      }
+
+      renderClaimsTable(filtered);
+    }
+
+    // Modal Details Handler
+    function openClaimModalById(claimId) {
+      const claim = cachedClaims.find(c => c.claim_id === claimId);
+      if (!claim) return;
+
+      const isApp = (claim.status === "Approved");
+      document.getElementById("modalTitle").textContent = `Claim #${claim.claim_id} Adjudication Slip`;
+      document.getElementById("modalSubtitle").textContent = `Recorded: ${claim.created_at}`;
+
+      document.getElementById("modalBody").innerHTML = `
+        <div style="text-align: center; margin-bottom: 1.25rem;">
+          <span class="status-pill ${isApp ? 'approved' : 'rejected'}" style="font-size: 0.9rem; padding: 0.4rem 1rem;">
+            ${isApp ? '✓ APPROVED & SETTLED' : '✕ REJECTED BY ENGINE'}
+          </span>
+        </div>
+
+        <div class="modal-grid-2">
+          <div class="modal-item-box">
+            <span>Patient ID</span>
+            <strong>${claim.patient_id}</strong>
+          </div>
+          <div class="modal-item-box">
+            <span>Patient Name</span>
+            <strong>${claim.patient_name || "Unknown"}</strong>
+          </div>
+          <div class="modal-item-box">
+            <span>Healthcare Provider</span>
+            <strong>${claim.hospital_name}</strong>
+          </div>
+          <div class="modal-item-box">
+            <span>Claim Amount</span>
+            <strong class="mono-val" style="color: var(--primary);">${formatCurrency(claim.claim_amount)}</strong>
+          </div>
+        </div>
+
+        <div style="background: #f8fafc; border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.9rem; margin-bottom: 1.25rem;">
+          <span style="font-size: 0.72rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 0.3rem;">Adjudication Audit Notes</span>
+          <p style="font-size: 0.86rem; color: var(--text-secondary); line-height: 1.45;">${claim.remarks}</p>
+        </div>
+
+        <div style="display: flex; gap: 0.6rem;">
+          <button type="button" class="submit-btn" style="padding: 0.65rem;" onclick="window.print()">🖨️ Print Voucher</button>
+          <button type="button" class="nav-btn" style="background: #0f172a; color: #fff; padding: 0.65rem 1.25rem;" onclick="closeModal()">Close</button>
+        </div>
+      `;
+
+      document.getElementById("claimModal").style.display = "flex";
+    }
+
+    function openModalForLatestClaim() {
+      if (latestResult && latestResult.claim_id) {
+        openClaimModalById(latestResult.claim_id);
+      } else {
+        alert("Please submit a claim first.");
+      }
+    }
+
+    function closeModal() {
+      document.getElementById("claimModal").style.display = "none";
+    }
+
+    function closeModalOnBackdrop(e) {
+      if (e.target.id === "claimModal") {
+        closeModal();
+      }
+    }
+
+    // Database Reset
+    async function handleDatabaseReset() {
+      if (!confirm("Are you sure you want to reset the database to pristine factory seed values?")) {
+        return;
+      }
+
+      try {
+        const res = await fetch("/api/reset", { method: "POST" });
+        const data = await res.json();
+        if (data.success) {
+          showToast("Database successfully restored to seed data!");
+          
+          document.getElementById("idleState").style.display = "flex";
+          document.getElementById("resultContainer").style.display = "none";
+          resetStudioForm();
+          
+          loadStats();
+          loadPatients();
+          loadClaims();
+        }
+      } catch (err) {
+        alert("Failed to reset database: " + err.message);
+      }
+    }
+
+    // Quick Automated Demo Simulation
+    async function runQuickDemoSimulation() {
+      showToast("Starting Automated Demo Batch...", "success");
+
+      const demoSteps = [
+        { pId: "P101", hosp: "General Medical Center", amt: 50000 },
+        { pId: "P102", hosp: "Apollo Specialty", amt: 25000 },
+        { pId: "P103", hosp: "St. Mark Hospital", amt: 75000 }
+      ];
+
+      for (let i = 0; i < demoSteps.length; i++) {
+        const step = demoSteps[i];
+        applyPreset(step.pId, step.hosp, step.amt);
+        await new Promise(r => setTimeout(r, 600));
+        
+        // Trigger submit
+        const submitEvent = new Event("submit", { cancelable: true });
+        document.getElementById("claimForm").dispatchEvent(submitEvent);
+        await new Promise(r => setTimeout(r, 1200));
+      }
+
+      showToast("Demo batch completed! Check KPI cards and Audit Log.", "success");
+    }
+  </script>
+</body>
+</html>

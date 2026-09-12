@@ -1,0 +1,210 @@
+{
+  "info": {
+    "_postman_id": "8b51d45c-2089-498c-bfd6-b072898c1992",
+    "name": "Automated Health & Insurance Claims Processing Engine",
+    "description": "API collection for testing automated insurance claims processing engine rules (Policy Active status check and Coverage Limit check).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:5000",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Submit Claim - Approved (P101: Active Policy & Within Limit)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"patient_id\": \"P101\",\n  \"hospital_name\": \"City General Hospital\",\n  \"claim_amount\": 50000.0\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/claims/process",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "claims",
+            "process"
+          ]
+        },
+        "description": "Submits a claim for Patient P101 who has an 'Active' policy and ample coverage limit ($475,000). Both Rule 1 and Rule 2 will PASS, resulting in an Approved status and deducted balance."
+      },
+      "response": []
+    },
+    {
+      "name": "2. Submit Claim - Rejected (P102: Rule 1 Fail - Inactive Policy)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"patient_id\": \"P102\",\n  \"hospital_name\": \"Apollo Care Hospital\",\n  \"claim_amount\": 30000.0\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/claims/process",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "claims",
+            "process"
+          ]
+        },
+        "description": "Submits a claim for Patient P102 whose policy status is 'Inactive'. Rule 1 FAILS immediately, causing the claim to be Rejected without modifying any coverage limits."
+      },
+      "response": []
+    },
+    {
+      "name": "3. Submit Claim - Rejected (P103: Rule 2 Fail - Exceeds Coverage Limit)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"patient_id\": \"P103\",\n  \"hospital_name\": \"Metro Memorial Hospital\",\n  \"claim_amount\": 80000.0\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/claims/process",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "claims",
+            "process"
+          ]
+        },
+        "description": "Submits a claim for Patient P103 whose policy status is 'Active' but remaining coverage limit is only $50,000. Because the claim is $80,000, Rule 2 FAILS and the claim is Rejected."
+      },
+      "response": []
+    },
+    {
+      "name": "4. Submit Claim - Rejected (Non-Existent Patient ID)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"patient_id\": \"P999\",\n  \"hospital_name\": \"Mercy General Hospital\",\n  \"claim_amount\": 15000.0\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "{{base_url}}/api/claims/process",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "claims",
+            "process"
+          ]
+        },
+        "description": "Submits a claim with an unregistered patient ID 'P999'. The engine flags the patient as not found and logs a rejected claim."
+      },
+      "response": []
+    },
+    {
+      "name": "5. Get Registered Patients & Coverage Limits",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/patients",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "patients"
+          ]
+        },
+        "description": "Fetches all patient records from SQLite, including their active policy status and updated remaining coverage limits."
+      },
+      "response": []
+    },
+    {
+      "name": "6. Get Claims Transaction History",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/claims",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "claims"
+          ]
+        },
+        "description": "Retrieves the full audit log of processed claims with timestamps, approval status, and remarks."
+      },
+      "response": []
+    },
+    {
+      "name": "7. Reset Database to Initial Seed State",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/reset",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "reset"
+          ]
+        },
+        "description": "Resets the SQLite database tables back to default seed records for reproducible testing."
+      },
+      "response": []
+    }
+  ]
+}
