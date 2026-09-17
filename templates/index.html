@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Automated Health & Insurance Claims Processing Engine</title>
+  <title>Automated Health & Insurance Claims Processing Engine | Enterprise RPA Edition</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   
   <style>
     /* ==========================================================================
-       Modern SaaS Design System & Color Palette
+       Zoho RPA / Modern InsurTech Design System
        ========================================================================== */
     :root {
-      --primary: #2563eb;
-      --primary-hover: #1d4ed8;
+      --primary: #1d4ed8;
+      --primary-hover: #1e40af;
       --primary-subtle: #eff6ff;
       --primary-border: #bfdbfe;
 
@@ -34,10 +34,9 @@
       --amber-bg: #fffbeb;
       --amber-border: #fde68a;
 
-      --dark-navy: #090e1a;
-      --navy-card: #0f172a;
-      --navy-border: #1e293b;
-
+      --navy-header: #0a1128;
+      --navy-surface: #0f172a;
+      
       --bg-canvas: #f8fafc;
       --bg-surface: #ffffff;
       --bg-surface-secondary: #f1f5f9;
@@ -46,7 +45,7 @@
       --border-strong: #cbd5e1;
 
       --text-main: #0f172a;
-      --text-secondary: #475569;
+      --text-secondary: #334155;
       --text-muted: #64748b;
       --text-light: #94a3b8;
 
@@ -56,13 +55,11 @@
       --radius-sm: 8px;
       --radius-md: 12px;
       --radius-lg: 16px;
-      --radius-xl: 22px;
+      --radius-xl: 20px;
 
-      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
       --shadow-md: 0 4px 12px -2px rgba(15, 23, 42, 0.08), 0 2px 6px -1px rgba(15, 23, 42, 0.04);
       --shadow-lg: 0 12px 24px -4px rgba(15, 23, 42, 0.1), 0 4px 12px -2px rgba(15, 23, 42, 0.05);
-      --shadow-glow-emerald: 0 0 24px -4px var(--emerald-glow);
-      --shadow-glow-rose: 0 0 24px -4px var(--rose-glow);
     }
 
     *, *::before, *::after {
@@ -82,14 +79,12 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ==========================================================================
-       Top Navigation Bar
-       ========================================================================== */
+    /* Top Navigation Bar */
     .top-navbar {
-      background: linear-gradient(180deg, #090e1a 0%, #0c1527 100%);
+      background: linear-gradient(180deg, #090e1a 0%, #0d172e 100%);
       border-bottom: 1px solid #1e293b;
       color: #ffffff;
-      padding: 0.9rem 1.5rem;
+      padding: 0.95rem 1.75rem;
       position: sticky;
       top: 0;
       z-index: 1000;
@@ -108,18 +103,18 @@
     .brand-group {
       display: flex;
       align-items: center;
-      gap: 0.85rem;
+      gap: 0.9rem;
     }
 
     .brand-logo-badge {
-      width: 42px;
-      height: 42px;
-      background: linear-gradient(135deg, #2563eb, #06b6d4);
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, #1d4ed8, #0ea5e9);
       border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 0 16px rgba(37, 99, 235, 0.4);
+      box-shadow: 0 0 16px rgba(29, 78, 216, 0.45);
       color: #ffffff;
     }
 
@@ -136,7 +131,7 @@
     .brand-version-pill {
       font-size: 0.68rem;
       font-weight: 700;
-      padding: 0.15rem 0.45rem;
+      padding: 0.15rem 0.5rem;
       background: rgba(255, 255, 255, 0.12);
       border: 1px solid rgba(255, 255, 255, 0.2);
       border-radius: 9999px;
@@ -148,7 +143,6 @@
     .brand-text p {
       font-size: 0.8rem;
       color: #94a3b8;
-      font-weight: 400;
     }
 
     .navbar-actions {
@@ -192,7 +186,7 @@
       font-family: var(--font-sans);
       font-size: 0.82rem;
       font-weight: 600;
-      padding: 0.45rem 0.9rem;
+      padding: 0.45rem 0.95rem;
       border-radius: var(--radius-sm);
       cursor: pointer;
       display: inline-flex;
@@ -208,9 +202,7 @@
       transform: translateY(-1px);
     }
 
-    /* ==========================================================================
-       Main Workspace Layout
-       ========================================================================== */
+    /* Main Container */
     .app-viewport {
       max-width: 1440px;
       width: 100%;
@@ -219,9 +211,7 @@
       flex: 1;
     }
 
-    /* ==========================================================================
-       KPI Summary Dashboard Cards
-       ========================================================================== */
+    /* KPI Summary Row */
     .kpi-row {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
@@ -319,9 +309,7 @@
     .kpi-pill.positive { background: var(--emerald-bg); color: var(--emerald-dark); }
     .kpi-pill.negative { background: var(--rose-bg); color: var(--rose-dark); }
 
-    /* ==========================================================================
-       Two-Column Claims Studio & Adjudication Deck
-       ========================================================================== */
+    /* Studio Grid (Left Form, Right Decision Deck) */
     .studio-grid {
       display: grid;
       grid-template-columns: 1.15fr 1fr;
@@ -387,7 +375,7 @@
       padding: 1.6rem;
     }
 
-    /* Quick Test Presets Carousel */
+    /* Preset Scenarios */
     .preset-section {
       background: #f8fafc;
       border: 1px solid var(--border-subtle);
@@ -466,7 +454,7 @@
       color: var(--text-muted);
     }
 
-    /* Interactive Live Policy Preview Box */
+    /* Live Policy Auto-Lookup Card (Backend Connected) */
     .patient-preview-box {
       background: #f0fdf4;
       border: 1.5px solid #bbf7d0;
@@ -482,6 +470,11 @@
       border-color: #fecdd3;
     }
 
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     .preview-flex {
       display: flex;
       align-items: center;
@@ -495,8 +488,8 @@
     }
 
     .preview-avatar {
-      width: 36px;
-      height: 36px;
+      width: 38px;
+      height: 38px;
       border-radius: 50%;
       background: #059669;
       color: #ffffff;
@@ -512,7 +505,7 @@
     }
 
     .preview-details h4 {
-      font-size: 0.88rem;
+      font-size: 0.9rem;
       font-weight: 700;
       color: var(--text-main);
     }
@@ -604,7 +597,7 @@
     .form-control:focus {
       outline: none;
       border-color: var(--primary);
-      box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+      box-shadow: 0 0 0 4px rgba(29, 78, 216, 0.12);
     }
 
     .quick-amount-row {
@@ -631,7 +624,7 @@
       border-color: var(--primary-border);
     }
 
-    /* Live Adjudication Warning Bar */
+    /* Live Warning Banner */
     .live-warning-bar {
       border-radius: var(--radius-sm);
       padding: 0.6rem 0.85rem;
@@ -659,7 +652,7 @@
     .submit-btn {
       width: 100%;
       padding: 0.85rem 1.5rem;
-      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      background: linear-gradient(135deg, #1d4ed8, #1e40af);
       color: #ffffff;
       border: none;
       border-radius: var(--radius-md);
@@ -671,16 +664,14 @@
       align-items: center;
       justify-content: center;
       gap: 0.6rem;
-      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
+      box-shadow: 0 4px 14px rgba(29, 78, 216, 0.3);
       transition: all 0.2s ease;
-      position: relative;
-      overflow: hidden;
     }
 
     .submit-btn:hover:not(:disabled) {
-      background: linear-gradient(135deg, #1d4ed8, #1e40af);
+      background: linear-gradient(135deg, #1e40af, #172554);
       transform: translateY(-1px);
-      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.4);
+      box-shadow: 0 6px 20px rgba(29, 78, 216, 0.4);
     }
 
     .submit-btn:disabled {
@@ -689,36 +680,18 @@
       transform: none;
     }
 
-    /* Rules info accordion */
-    .rules-badge-info {
-      margin-top: 1.25rem;
-      padding: 0.75rem 1rem;
-      background: #f8fafc;
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      font-size: 0.78rem;
-      color: var(--text-secondary);
+    .spinner {
+      width: 16px;
+      height: 16px;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-top-color: #ffffff;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
     }
 
-    .rules-badge-info summary {
-      cursor: pointer;
-      font-weight: 700;
-      color: var(--text-main);
-      user-select: none;
-    }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
-    .rules-badge-info ul {
-      margin-top: 0.5rem;
-      padding-left: 1.25rem;
-    }
-
-    .rules-badge-info li {
-      margin-bottom: 0.3rem;
-    }
-
-    /* ==========================================================================
-       Right Column: Live Engine Decision Deck
-       ========================================================================== */
+    /* Right Column: Decision Deck */
     .decision-deck {
       min-height: 520px;
       display: flex;
@@ -781,7 +754,6 @@
       max-width: 320px;
     }
 
-    /* Active Result Voucher / Decision Deck */
     .result-content-container {
       display: none;
       animation: slideUp 0.3s ease;
@@ -793,7 +765,6 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* Main Decision Banner */
     .decision-banner {
       border-radius: var(--radius-lg);
       padding: 1.25rem 1.4rem;
@@ -808,13 +779,13 @@
     .decision-banner.approved {
       background: linear-gradient(135deg, #059669, #047857);
       color: #ffffff;
-      box-shadow: var(--shadow-glow-emerald);
+      box-shadow: 0 0 24px -4px var(--emerald-glow);
     }
 
     .decision-banner.rejected {
       background: linear-gradient(135deg, #e11d48, #be123c);
       color: #ffffff;
-      box-shadow: var(--shadow-glow-rose);
+      box-shadow: 0 0 24px -4px var(--rose-glow);
     }
 
     .banner-left {
@@ -856,7 +827,7 @@
       font-weight: 700;
     }
 
-    /* Verification Pipeline Stepper */
+    /* 4-Stage RPA Stepper */
     .pipeline-stepper {
       background: #f8fafc;
       border: 1px solid var(--border-subtle);
@@ -945,7 +916,7 @@
     .step-item.passed .step-badge { background: #dcfce7; color: #166534; }
     .step-item.failed .step-badge { background: #ffe4e6; color: #9f1239; }
 
-    /* Coverage Adjustment Visual Meter */
+    /* Coverage Ledger Diff */
     .ledger-diff-card {
       background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
       border: 1px solid var(--border-subtle);
@@ -1001,7 +972,6 @@
       color: var(--text-muted);
     }
 
-    /* Remarks & Audit Notes */
     .decision-remarks-card {
       background: #ffffff;
       border: 1px solid var(--border-subtle);
@@ -1055,9 +1025,7 @@
       color: var(--text-main);
     }
 
-    /* ==========================================================================
-       Interactive Tables & Directory View
-       ========================================================================== */
+    /* Tables */
     .tables-cluster {
       display: flex;
       flex-direction: column;
@@ -1188,10 +1156,6 @@
       vertical-align: middle;
     }
 
-    .enterprise-table tbody tr {
-      transition: background 0.12s ease;
-    }
-
     .enterprise-table tbody tr:hover {
       background: #f8fafc;
     }
@@ -1203,8 +1167,8 @@
     }
 
     .table-avatar {
-      width: 32px;
-      height: 32px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
       background: linear-gradient(135deg, #e2e8f0, #cbd5e1);
       color: var(--text-secondary);
@@ -1244,29 +1208,10 @@
       letter-spacing: 0.03em;
     }
 
-    .status-pill.active {
-      background: #ecfdf5;
-      color: #047857;
-      border: 1px solid #a7f3d0;
-    }
-
-    .status-pill.inactive {
-      background: #fff1f2;
-      color: #be123c;
-      border: 1px solid #fecdd3;
-    }
-
-    .status-pill.approved {
-      background: #ecfdf5;
-      color: #047857;
-      border: 1px solid #a7f3d0;
-    }
-
-    .status-pill.rejected {
-      background: #fff1f2;
-      color: #be123c;
-      border: 1px solid #fecdd3;
-    }
+    .status-pill.active { background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; }
+    .status-pill.inactive { background: #fff1f2; color: #be123c; border: 1px solid #fecdd3; }
+    .status-pill.approved { background: #ecfdf5; color: #047857; border: 1px solid #a7f3d0; }
+    .status-pill.rejected { background: #fff1f2; color: #be123c; border: 1px solid #fecdd3; }
 
     .dot-indicator {
       width: 6px;
@@ -1275,11 +1220,7 @@
       background: currentColor;
     }
 
-    /* Sleek Table Coverage Bar */
-    .gauge-wrapper {
-      width: 140px;
-    }
-
+    .gauge-wrapper { width: 140px; }
     .gauge-meta {
       display: flex;
       justify-content: space-between;
@@ -1287,7 +1228,6 @@
       color: var(--text-muted);
       margin-bottom: 0.25rem;
     }
-
     .gauge-track {
       width: 100%;
       height: 6px;
@@ -1295,14 +1235,12 @@
       border-radius: 9999px;
       overflow: hidden;
     }
-
     .gauge-fill {
       height: 100%;
       border-radius: 9999px;
-      background: linear-gradient(90deg, #2563eb, #0284c7);
+      background: linear-gradient(90deg, #1d4ed8, #0ea5e9);
       transition: width 0.5s ease;
     }
-
     .gauge-fill.warning { background: linear-gradient(90deg, #f59e0b, #d97706); }
     .gauge-fill.danger { background: linear-gradient(90deg, #f43f5e, #e11d48); }
 
@@ -1324,9 +1262,7 @@
       transform: translateY(-1px);
     }
 
-    /* ==========================================================================
-       Adjudication Details Modal
-       ========================================================================== */
+    /* Modal */
     .modal-backdrop {
       position: fixed;
       top: 0;
@@ -1346,17 +1282,11 @@
     .modal-box {
       background: #ffffff;
       border-radius: var(--radius-xl);
-      max-width: 600px;
+      max-width: 650px;
       width: 100%;
       box-shadow: 0 20px 40px -8px rgba(0, 0, 0, 0.25);
       border: 1px solid var(--border-subtle);
       overflow: hidden;
-      animation: zoomIn 0.2s ease;
-    }
-
-    @keyframes zoomIn {
-      from { transform: scale(0.95); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
     }
 
     .modal-header {
@@ -1380,7 +1310,6 @@
       font-size: 1.3rem;
       color: var(--text-muted);
       cursor: pointer;
-      padding: 0.25rem;
       line-height: 1;
     }
 
@@ -1393,8 +1322,8 @@
     .modal-grid-2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-      margin-bottom: 1rem;
+      gap: 0.85rem;
+      margin-bottom: 1.15rem;
     }
 
     .modal-item-box {
@@ -1417,7 +1346,7 @@
       color: var(--text-main);
     }
 
-    /* Toast Notification */
+    /* Toast */
     .toast-container {
       position: fixed;
       bottom: 1.5rem;
@@ -1439,8 +1368,8 @@
       display: flex;
       align-items: center;
       gap: 0.65rem;
-      animation: toastIn 0.25s ease;
       border-left: 4px solid var(--primary);
+      animation: toastIn 0.25s ease;
     }
 
     .toast-msg.success { border-left-color: var(--emerald); }
@@ -1464,7 +1393,7 @@
 </head>
 <body>
 
-  <!-- Top Navbar -->
+  <!-- Top Navigation Bar -->
   <header class="top-navbar">
     <div class="navbar-inner">
       <div class="brand-group">
@@ -1476,23 +1405,19 @@
         </div>
         <div class="brand-text">
           <h1>
-            Automated Health Claims Engine
-            <span class="brand-version-pill">v2.4 Enterprise</span>
+            Health Insurance Claims RPA Engine
+            <span class="brand-version-pill">v3.0 Enterprise</span>
           </h1>
-          <p>Real-Time Rule Adjudication &bull; Coverage Integrity &bull; SQLite Relational Ledger</p>
+          <p>Zero-Touch Adjudication &bull; ACID Ledger Locking &bull; Real-Time Policy Sync</p>
         </div>
       </div>
 
       <div class="navbar-actions">
         <div class="pulse-pill">
           <span class="pulse-dot"></span>
-          Engine Active
+          Engine Live
         </div>
-        <button id="quickDemoBtn" class="nav-btn" title="Run simulated batch demonstration">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-          Quick Demo
-        </button>
-        <button id="resetDbBtn" class="nav-btn" title="Reset DB to pristine seed data">
+        <button id="resetDbBtn" class="nav-btn" title="Reset DB to initial seed records">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 12a9 9 0 0 1 9-9 9.75 9.75 0 0 1 6.74 2.74L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-9 9 9.75 9.75 0 0 1-6.74-2.74L3 16"/><path d="M8 16H3v5"/></svg>
           Reset DB
         </button>
@@ -1500,18 +1425,18 @@
     </div>
   </header>
 
-  <!-- App Main Content -->
+  <!-- Main Viewport -->
   <main class="app-viewport">
 
-    <!-- KPI Metrics Dashboard -->
+    <!-- KPI Metric Dashboard (Loaded dynamically from SQLite /api/stats) -->
     <section class="kpi-row">
       
-      <!-- Card 1: Total Processed Claims -->
-      <div class="kpi-card" style="--card-accent: #2563eb;">
+      <!-- Card 1: Total Claims -->
+      <div class="kpi-card" style="--card-accent: #1d4ed8;">
         <div class="kpi-card-header">
           <span class="kpi-title">Total Claims Processed</span>
           <div class="kpi-icon-box">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
           </div>
         </div>
         <div class="kpi-value" id="kpiTotalClaims">0</div>
@@ -1521,7 +1446,7 @@
         </div>
       </div>
 
-      <!-- Card 2: Total Settled Amount -->
+      <!-- Card 2: Settled Payouts -->
       <div class="kpi-card" style="--card-accent: #059669;">
         <div class="kpi-card-header">
           <span class="kpi-title">Settled Payouts</span>
@@ -1531,15 +1456,15 @@
         </div>
         <div class="kpi-value" id="kpiTotalSettled">$0.00</div>
         <div class="kpi-meta">
-          <span>From <strong id="kpiTotalClaimed">$0.00</strong> requested</span>
+          <span>Requested: <strong id="kpiTotalClaimed">$0.00</strong></span>
         </div>
       </div>
 
-      <!-- Card 3: Adjudication Approval Rate -->
-      <div class="kpi-card" style="--card-accent: #8b5cf6;">
+      <!-- Card 3: Approval Ratio -->
+      <div class="kpi-card" style="--card-accent: #7c3aed;">
         <div class="kpi-card-header">
-          <span class="kpi-title">Approval Ratio</span>
-          <div class="kpi-icon-box" style="background: #f5f3ff; color: #8b5cf6;">
+          <span class="kpi-title">Adjudication Approval Rate</span>
+          <div class="kpi-icon-box" style="background: #f5f3ff; color: #7c3aed;">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
           </div>
         </div>
@@ -1549,26 +1474,26 @@
         </div>
       </div>
 
-      <!-- Card 4: Insured Registry Health -->
-      <div class="kpi-card" style="--card-accent: #06b6d4;">
+      <!-- Card 4: Active Policy Registry -->
+      <div class="kpi-card" style="--card-accent: #0891b2;">
         <div class="kpi-card-header">
-          <span class="kpi-title">Active Policy Holders</span>
+          <span class="kpi-title">Active Insured Policies</span>
           <div class="kpi-icon-box" style="background: #ecfeff; color: #0891b2;">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
           </div>
         </div>
         <div class="kpi-value" id="kpiActivePolicies">0 / 0</div>
         <div class="kpi-meta">
-          <span class="kpi-pill positive">Real-Time Database Sync</span>
+          <span class="kpi-pill positive">Synchronized SQLite Ledger</span>
         </div>
       </div>
 
     </section>
 
-    <!-- Claims Processing Studio & Decision Deck -->
+    <!-- Studio Grid -->
     <div class="studio-grid">
 
-      <!-- Left: Interactive Claim Submission Studio -->
+      <!-- Left Column: Claims Intake Studio -->
       <section class="studio-card">
         
         <div class="studio-card-header">
@@ -1578,28 +1503,28 @@
             </div>
             <div>
               <h2>Claims Intake Studio</h2>
-              <p>Submit claims for instantaneous automated policy adjudication</p>
+              <p>Submit claims for real-time automated verification</p>
             </div>
           </div>
           <span style="font-size: 0.76rem; font-weight: 700; color: var(--text-muted); background: var(--bg-surface-secondary); padding: 0.25rem 0.6rem; border-radius: 6px;">
-            Step 1 of 2
+            Intake &bull; Stage 1
           </span>
         </div>
 
         <div class="studio-card-body">
           
-          <!-- One-Click Preset Buttons -->
+          <!-- Test Presets -->
           <div class="preset-section">
             <div class="preset-header">
               <span class="preset-title">
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
                 Instant Test Scenarios
               </span>
-              <span style="font-size: 0.7rem; color: var(--text-muted);">Click to auto-populate</span>
+              <span style="font-size: 0.7rem; color: var(--text-muted);">One-click autofill & live query</span>
             </div>
 
             <div class="preset-chips-grid">
-              <button type="button" class="preset-card-btn" onclick="applyPreset('P101', 'Metro General Hospital', 45000)">
+              <button type="button" class="preset-card-btn" onclick="applyPreset('P101', 'Metro General Hospital', 'Inpatient Medical', 45000)">
                 <div class="preset-btn-top">
                   <span>P101 - John Doe</span>
                   <span class="preset-btn-tag" style="background:#ecfdf5; color:#047857;">Active</span>
@@ -1607,7 +1532,7 @@
                 <span class="preset-btn-sub">Claim $45,000 &bull; Expect Approved</span>
               </button>
 
-              <button type="button" class="preset-card-btn" onclick="applyPreset('P102', 'Apollo Care Hospital', 30000)">
+              <button type="button" class="preset-card-btn" onclick="applyPreset('P102', 'Apollo Care Hospital', 'Surgery', 30000)">
                 <div class="preset-btn-top">
                   <span>P102 - Jane Smith</span>
                   <span class="preset-btn-tag" style="background:#fff1f2; color:#be123c;">Inactive</span>
@@ -1615,7 +1540,7 @@
                 <span class="preset-btn-sub">Claim $30,000 &bull; Expect Rule 1 Reject</span>
               </button>
 
-              <button type="button" class="preset-card-btn" onclick="applyPreset('P103', 'City Memorial Hospital', 85000)">
+              <button type="button" class="preset-card-btn" onclick="applyPreset('P103', 'City Memorial Hospital', 'ICU Emergency', 85000)">
                 <div class="preset-btn-top">
                   <span>P103 - Robert Taylor</span>
                   <span class="preset-btn-tag" style="background:#fffbeb; color:#b45309;">Limit $50k</span>
@@ -1623,7 +1548,7 @@
                 <span class="preset-btn-sub">Claim $85,000 &bull; Expect Rule 2 Reject</span>
               </button>
 
-              <button type="button" class="preset-card-btn" onclick="applyPreset('P104', 'St. Jude Children Hospital', 150000)">
+              <button type="button" class="preset-card-btn" onclick="applyPreset('P104', 'St. Jude Children Hospital', 'Inpatient Medical', 150000)">
                 <div class="preset-btn-top">
                   <span>P104 - Emily Davis</span>
                   <span class="preset-btn-tag" style="background:#ecfdf5; color:#047857;">Active $1M</span>
@@ -1633,32 +1558,32 @@
             </div>
           </div>
 
-          <!-- Live Policy Auto-Preview (Dynamic feedback as user types) -->
+          <!-- Live Policy Auto-Lookup Card (Directly queried from /api/policies/<id>) -->
           <div id="patientPreviewBox" class="patient-preview-box">
             <div class="preview-flex">
               <div class="preview-info">
                 <div class="preview-avatar" id="prevAvatar">JD</div>
                 <div class="preview-details">
                   <h4 id="prevName">John Doe</h4>
-                  <span id="prevIdSub">Patient ID: P101</span>
+                  <span id="prevIdSub">Policy: P101 &bull; Comprehensive Gold</span>
                 </div>
               </div>
               <span class="preview-badge-status active" id="prevBadge">Active Policy</span>
             </div>
             
             <div class="preview-metrics-bar">
-              <span>Available: <strong class="mono-val" id="prevAvailable">$500,000.00</strong></span>
-              <span class="projected-calc" id="prevProjected">Est. After: $500,000.00</span>
+              <span>Database Available: <strong class="mono-val" id="prevAvailable">$475,000.00</strong></span>
+              <span class="projected-calc" id="prevProjected">Est. After: $475,000.00</span>
             </div>
           </div>
 
-          <!-- Claim Form -->
+          <!-- Claims Intake Form -->
           <form id="claimForm">
             
-            <!-- Patient ID Input -->
+            <!-- Policy ID Input -->
             <div class="form-group">
-              <label class="form-label" for="patientId">
-                <span>Patient ID <span class="req">*</span></span>
+              <label class="form-label" for="policyId">
+                <span>Policy ID <span class="req">*</span></span>
                 <span style="font-size: 0.72rem; color: var(--text-muted); font-weight: normal;">e.g., P101, P102, P103, P104</span>
               </label>
               <div class="input-wrapper">
@@ -1667,17 +1592,17 @@
                 </div>
                 <input 
                   type="text" 
-                  id="patientId" 
-                  name="patientId" 
+                  id="policyId" 
+                  name="policyId" 
                   class="form-control" 
-                  placeholder="Enter Registered Patient ID" 
+                  placeholder="Enter Registered Policy ID" 
                   required 
                   autocomplete="off"
                 >
               </div>
             </div>
 
-            <!-- Hospital / Healthcare Provider -->
+            <!-- Healthcare Provider Name -->
             <div class="form-group">
               <label class="form-label" for="hospitalName">
                 <span>Healthcare Provider / Hospital <span class="req">*</span></span>
@@ -1698,11 +1623,30 @@
               </div>
             </div>
 
-            <!-- Claim Amount Input with Quick Addition Chips -->
+            <!-- Treatment Category Dropdown -->
+            <div class="form-group">
+              <label class="form-label" for="claimCategory">
+                <span>Medical Treatment Category</span>
+              </label>
+              <div class="input-wrapper">
+                <div class="input-icon">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                </div>
+                <select id="claimCategory" name="claimCategory" class="form-control" style="cursor: pointer;">
+                  <option value="Inpatient Medical">Inpatient Medical Care</option>
+                  <option value="Surgery">Surgical Procedures</option>
+                  <option value="ICU Emergency">ICU / Critical Care</option>
+                  <option value="Diagnostic Imaging">Diagnostics & Imaging</option>
+                  <option value="Pharmacy & Oncology">Pharmacy & Oncology</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Claim Amount Input -->
             <div class="form-group">
               <label class="form-label" for="claimAmount">
                 <span>Claim Amount ($ USD) <span class="req">*</span></span>
-                <span style="font-size: 0.72rem; color: var(--text-muted); font-weight: normal;">Numeric format</span>
+                <span style="font-size: 0.72rem; color: var(--text-muted); font-weight: normal;">Integer/decimal format</span>
               </label>
               <div class="input-wrapper">
                 <div class="input-icon" style="font-weight: 800; font-family: var(--font-mono); font-size: 1.1rem; color: var(--text-secondary);">
@@ -1720,7 +1664,7 @@
                 >
               </div>
 
-              <!-- Quick Increment / Preset Chips -->
+              <!-- Quick Increment Chips -->
               <div class="quick-amount-row">
                 <button type="button" class="quick-amt-btn" onclick="setClaimAmount(10000)">$10,000</button>
                 <button type="button" class="quick-amt-btn" onclick="setClaimAmount(25000)">$25,000</button>
@@ -1730,10 +1674,10 @@
               </div>
             </div>
 
-            <!-- Dynamic Live Alert Bar -->
+            <!-- Dynamic Live Pre-submission Warning Bar -->
             <div id="liveWarningBar" class="live-warning-bar">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-              <span id="liveWarningText">Warning text</span>
+              <span id="liveWarningText">Warning details</span>
             </div>
 
             <!-- Submit Button -->
@@ -1745,22 +1689,10 @@
 
           </form>
 
-          <!-- Collapsible Rules Info -->
-          <details class="rules-badge-info">
-            <summary>
-              Engine Business Rules Spec (v2.4)
-            </summary>
-            <ul>
-              <li><strong>Rule 1 (Status Integrity):</strong> Patient must have status <code>'Active'</code> in the database. Inactive policies reject immediately.</li>
-              <li><strong>Rule 2 (Coverage Ceiling):</strong> Claim amount cannot exceed current remaining limit.</li>
-              <li><strong>Settlement:</strong> If approved, balance is subtracted atomically via SQLite transaction and logged.</li>
-            </ul>
-          </details>
-
         </div>
       </section>
 
-      <!-- Right: Live Engine Decision Deck -->
+      <!-- Right Column: Live Engine Decision Deck -->
       <section class="studio-card decision-deck">
         
         <div class="studio-card-header">
@@ -1774,11 +1706,11 @@
             </div>
           </div>
           <span style="font-size: 0.76rem; font-weight: 700; color: var(--text-muted); background: var(--bg-surface-secondary); padding: 0.25rem 0.6rem; border-radius: 6px;">
-            Step 2 of 2
+            Engine &bull; Stage 2
           </span>
         </div>
 
-        <!-- Initial Idle Placeholder State -->
+        <!-- Initial Standby Radar State -->
         <div id="idleState" class="placeholder-state">
           <div class="radar-orbit">
             <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m10 15 5-3-5-3v6Z"/></svg>
@@ -1787,7 +1719,7 @@
           <p>Submit a claim from the Intake Studio or click an instant test scenario to initiate real-time multi-rule verification.</p>
         </div>
 
-        <!-- Live Evaluated Result Container -->
+        <!-- Live Evaluated Result Container (Dynamically rendered from POST /api/claims/process) -->
         <div id="resultContainer" class="result-content-container">
           
           <!-- Banner Result -->
@@ -1805,7 +1737,7 @@
           <!-- Claim Overview Strip -->
           <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; margin-bottom: 1.25rem;">
             <div style="background: #f8fafc; border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.7rem 0.85rem;">
-              <span style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; display: block;">Patient</span>
+              <span style="font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; font-weight: 700; display: block;">Policy & Insured</span>
               <strong style="font-size: 0.95rem;" id="resPatientName">John Doe (P101)</strong>
             </div>
             <div style="background: #f8fafc; border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.7rem 0.85rem;">
@@ -1814,9 +1746,9 @@
             </div>
           </div>
 
-          <!-- 4-Step Verification Pipeline -->
+          <!-- 4-Stage Verification Pipeline -->
           <div class="pipeline-stepper">
-            <div class="pipeline-title">Rule Verification Pipeline</div>
+            <div class="pipeline-title">Rule Verification Pipeline (SQLite Backend)</div>
 
             <!-- Step 1: Input Structure -->
             <div class="step-item passed" id="pipeStep0">
@@ -1824,7 +1756,7 @@
                 <div class="step-indicator">✓</div>
                 <div class="step-text">
                   <h5>Input Payload Sanitization</h5>
-                  <p>Provider ID, Hospital name & numeric amount validated</p>
+                  <p>Provider ID, Hospital name & positive integer cents validated</p>
                 </div>
               </div>
               <span class="step-badge">PASS</span>
@@ -1847,7 +1779,7 @@
               <div class="step-left">
                 <div class="step-indicator" id="step2Indicator">✓</div>
                 <div class="step-text">
-                  <h5>Rule 2: Remaining Coverage Limit</h5>
+                  <h5>Rule 2: Remaining Coverage Ceiling</h5>
                   <p id="step2Desc">Requested amount is within remaining balance</p>
                 </div>
               </div>
@@ -1859,7 +1791,7 @@
               <div class="step-left">
                 <div class="step-indicator" id="step3Indicator">✓</div>
                 <div class="step-text">
-                  <h5>Ledger Commitment</h5>
+                  <h5>Ledger Commitment & Audit Log</h5>
                   <p id="step3Desc">Transaction persisted to SQLite audit trail</p>
                 </div>
               </div>
@@ -1867,7 +1799,7 @@
             </div>
           </div>
 
-          <!-- Coverage Adjustment Diff Meter -->
+          <!-- Coverage Limit Adjustment Meter -->
           <div class="ledger-diff-card">
             <div class="ledger-title">Coverage Limit Reconciliation</div>
             <div class="ledger-flex">
@@ -1888,7 +1820,7 @@
             </div>
           </div>
 
-          <!-- Official Remarks Note -->
+          <!-- Adjudication Remarks -->
           <div class="decision-remarks-card">
             <div class="remarks-heading">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
@@ -1907,7 +1839,7 @@
             </button>
             <button type="button" class="action-sub-btn" onclick="openModalForLatestClaim()">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-              Full Slip
+              View Full Slip
             </button>
             <button type="button" class="action-sub-btn" onclick="resetStudioForm()">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
@@ -1921,10 +1853,10 @@
 
     </div>
 
-    <!-- Bottom Tables Section: Registered Insured Patients & Audit Trail -->
+    <!-- Live Data Tables (Directly from SQLite) -->
     <div class="tables-cluster">
 
-      <!-- Patient Policies Table -->
+      <!-- Table 1: Policies Directory -->
       <section class="table-container-card">
         <div class="table-toolbar">
           <div class="table-title-area">
@@ -1936,9 +1868,9 @@
               <span class="search-icon">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
               </span>
-              <input type="text" id="patientSearchInput" placeholder="Filter patients..." oninput="filterPatientsTable()">
+              <input type="text" id="policySearchInput" placeholder="Filter policies..." oninput="filterPoliciesTable()">
             </div>
-            <button class="refresh-mini-btn" onclick="loadPatients(true)">
+            <button class="refresh-mini-btn" onclick="loadPolicies(true)">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
               Refresh
             </button>
@@ -1946,30 +1878,31 @@
         </div>
 
         <div class="table-responsive">
-          <table class="enterprise-table" id="patientsTable">
+          <table class="enterprise-table" id="policiesTable">
             <thead>
               <tr>
-                <th>Patient Details</th>
-                <th>Policy Status</th>
+                <th>Policy & Member</th>
+                <th>Policy Tier</th>
+                <th>Status</th>
                 <th>Remaining Coverage</th>
                 <th>Total Policy Limit</th>
                 <th>Coverage Utilization</th>
                 <th>Intake Action</th>
               </tr>
             </thead>
-            <tbody id="patientsTableBody">
-              <tr><td colspan="6" style="text-align: center; color: var(--text-muted);">Syncing patient database...</td></tr>
+            <tbody id="policiesTableBody">
+              <tr><td colspan="7" style="text-align: center; color: var(--text-muted);">Syncing policy database...</td></tr>
             </tbody>
           </table>
         </div>
       </section>
 
-      <!-- Claims Audit History Table -->
+      <!-- Table 2: Claims Audit History Log -->
       <section class="table-container-card">
         <div class="table-toolbar">
           <div class="table-title-area">
             <h3>Claims Adjudication Audit Log</h3>
-            <p>Complete historical record of all processed claims with reasons and timestamps.</p>
+            <p>Complete historical record of all processed claims with reasons, timestamps, and audit traces.</p>
           </div>
           <div class="table-controls">
             <select class="filter-select" id="claimStatusFilter" onchange="filterClaimsTable()">
@@ -1981,7 +1914,7 @@
               <span class="search-icon">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
               </span>
-              <input type="text" id="claimsSearchInput" placeholder="Filter hospital or patient..." oninput="filterClaimsTable()">
+              <input type="text" id="claimsSearchInput" placeholder="Filter hospital or member..." oninput="filterClaimsTable()">
             </div>
             <button class="refresh-mini-btn" onclick="loadClaims(true)">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/></svg>
@@ -1996,16 +1929,17 @@
               <tr>
                 <th>Claim Ref</th>
                 <th>Timestamp</th>
-                <th>Insured Patient</th>
+                <th>Policy / Member</th>
                 <th>Healthcare Provider</th>
+                <th>Category</th>
                 <th>Amount</th>
                 <th>Adjudication</th>
-                <th>Rule Evaluation Details</th>
+                <th>Remarks</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody id="claimsTableBody">
-              <tr><td colspan="8" style="text-align: center; color: var(--text-muted);">Syncing claims transaction log...</td></tr>
+              <tr><td colspan="9" style="text-align: center; color: var(--text-muted);">Syncing claims transaction log...</td></tr>
             </tbody>
           </table>
         </div>
@@ -2015,19 +1949,19 @@
 
   </main>
 
-  <!-- Detailed Claim Slip Modal -->
+  <!-- Detailed Claim Slip Modal (Loads live claim + audit logs from /api/claims/<id>) -->
   <div id="claimModal" class="modal-backdrop" onclick="closeModalOnBackdrop(event)">
     <div class="modal-box">
       <div class="modal-header">
         <div>
           <h3 id="modalTitle">Claim Adjudication Slip</h3>
-          <span style="font-size: 0.75rem; color: var(--text-muted);" id="modalSubtitle">Official Record</span>
+          <span style="font-size: 0.75rem; color: var(--text-muted);" id="modalSubtitle">Official Audit Record</span>
         </div>
         <button class="close-modal-btn" onclick="closeModal()">&times;</button>
       </div>
 
       <div class="modal-body" id="modalBody">
-        <!-- Injected via JavaScript -->
+        <!-- Injected dynamically via JavaScript -->
       </div>
     </div>
   </div>
@@ -2037,32 +1971,29 @@
 
   <!-- Footer -->
   <footer class="footer">
-    <p>Automated Health & Insurance Claims Processing Engine &bull; Enterprise Edition &bull; Python Flask + SQLite</p>
+    <p>Automated Health & Insurance Claims Processing Engine &bull; Enterprise RPA Edition &bull; Python Flask + SQLite</p>
   </footer>
 
-  <!-- Complete Frontend Client Controller -->
+  <!-- Frontend Client Logic -->
   <script>
-    // Global in-memory cache for live searching & instant preview
-    let cachedPatients = [];
+    let cachedPolicies = [];
     let cachedClaims = [];
     let latestResult = null;
+    let lookupTimeout = null;
 
     document.addEventListener("DOMContentLoaded", () => {
-      // Load initial state
       loadStats();
-      loadPatients();
+      loadPolicies();
       loadClaims();
 
-      // Form listener
       const claimForm = document.getElementById("claimForm");
       if (claimForm) {
         claimForm.addEventListener("submit", handleClaimSubmission);
       }
 
-      // Live Patient lookup listeners for instantaneous preview
-      const patientIdInput = document.getElementById("patientId");
-      if (patientIdInput) {
-        patientIdInput.addEventListener("input", onPatientIdInput);
+      const policyIdInput = document.getElementById("policyId");
+      if (policyIdInput) {
+        policyIdInput.addEventListener("input", onPolicyIdInput);
       }
 
       const claimAmountInput = document.getElementById("claimAmount");
@@ -2070,20 +2001,12 @@
         claimAmountInput.addEventListener("input", onClaimAmountInput);
       }
 
-      // Reset DB Button
       const resetDbBtn = document.getElementById("resetDbBtn");
       if (resetDbBtn) {
         resetDbBtn.addEventListener("click", handleDatabaseReset);
       }
-
-      // Quick Demo Button
-      const quickDemoBtn = document.getElementById("quickDemoBtn");
-      if (quickDemoBtn) {
-        quickDemoBtn.addEventListener("click", runQuickDemoSimulation);
-      }
     });
 
-    // Helper: Currency Formatter
     function formatCurrency(amount) {
       const num = Number(amount) || 0;
       return new Intl.NumberFormat("en-US", {
@@ -2094,7 +2017,6 @@
       }).format(num);
     }
 
-    // Helper: Toast Notifications
     function showToast(message, type = "success") {
       const container = document.getElementById("toastContainer");
       if (!container) return;
@@ -2119,12 +2041,11 @@
       }, 3500);
     }
 
-    // Load KPI Stats
+    // 1. Load Live Stats from /api/stats
     async function loadStats() {
       try {
-        const response = await fetch("/api/stats");
-        const data = await response.json();
-
+        const res = await fetch("/api/stats");
+        const data = await res.json();
         if (data.success) {
           document.getElementById("kpiTotalClaims").textContent = data.total_claims;
           document.getElementById("kpiApprovedBadge").textContent = `${data.approved_claims} Approved`;
@@ -2134,23 +2055,22 @@
           document.getElementById("kpiTotalClaimed").textContent = formatCurrency(data.total_amount_claimed);
 
           document.getElementById("kpiApprovalRate").textContent = `${data.approval_rate}%`;
-          document.getElementById("kpiActivePolicies").textContent = `${data.active_policies} / ${data.total_patients}`;
+          document.getElementById("kpiActivePolicies").textContent = `${data.active_policies} / ${data.total_policies}`;
         }
       } catch (err) {
         console.warn("Could not load stats:", err);
       }
     }
 
-    // Apply Quick Test Preset
-    function applyPreset(patientId, hospital, amount) {
-      document.getElementById("patientId").value = patientId;
+    // 2. Apply Quick Preset
+    function applyPreset(policyId, hospital, category, amount) {
+      document.getElementById("policyId").value = policyId;
       document.getElementById("hospitalName").value = hospital;
+      document.getElementById("claimCategory").value = category;
       document.getElementById("claimAmount").value = amount;
 
-      onPatientIdInput();
-      onClaimAmountInput();
-
-      showToast(`Selected Preset for ${patientId}`);
+      queryPolicyFromBackend(policyId);
+      showToast(`Selected Preset for ${policyId}`);
     }
 
     function setClaimAmount(amount) {
@@ -2159,69 +2079,80 @@
     }
 
     function setMaxAvailableAmount() {
-      const patientId = document.getElementById("patientId").value.trim().toUpperCase();
-      const patient = cachedPatients.find(p => p.patient_id === patientId);
-      if (patient) {
-        document.getElementById("claimAmount").value = patient.coverage_limit;
+      const pId = document.getElementById("policyId").value.trim().toUpperCase();
+      const policy = cachedPolicies.find(p => p.policy_id === pId);
+      if (policy) {
+        document.getElementById("claimAmount").value = policy.remaining_coverage;
         onClaimAmountInput();
       } else {
-        alert("Please enter or select a valid Patient ID first.");
+        alert("Please enter or select a valid Policy ID first.");
       }
     }
 
-    // Instant Patient Lookup Preview
-    function onPatientIdInput() {
-      const input = document.getElementById("patientId");
-      const pId = input.value.trim().toUpperCase();
-      const previewBox = document.getElementById("patientPreviewBox");
-
+    // 3. Live Policy Lookup directly from SQLite Backend: GET /api/policies/<id>
+    function onPolicyIdInput() {
+      clearTimeout(lookupTimeout);
+      const pId = document.getElementById("policyId").value.trim().toUpperCase();
       if (!pId) {
-        previewBox.style.display = "none";
+        document.getElementById("patientPreviewBox").style.display = "none";
         hideLiveWarning();
         return;
       }
+      // Debounce 200ms
+      lookupTimeout = setTimeout(() => {
+        queryPolicyFromBackend(pId);
+      }, 200);
+    }
 
-      const patient = cachedPatients.find(p => p.patient_id === pId);
+    async function queryPolicyFromBackend(policyId) {
+      const previewBox = document.getElementById("patientPreviewBox");
+      try {
+        const res = await fetch(`/api/policies/${encodeURIComponent(policyId)}`);
+        const data = await res.json();
 
-      if (patient) {
-        previewBox.style.display = "block";
-        const isInactive = (patient.policy_status !== "Active");
-        previewBox.className = `patient-preview-box ${isInactive ? "inactive" : ""}`;
+        if (data.success && data.policy) {
+          const p = data.policy;
+          previewBox.style.display = "block";
+          const isInactive = (p.policy_status !== "Active");
+          previewBox.className = `patient-preview-box ${isInactive ? "inactive" : ""}`;
 
-        const initials = patient.name.split(" ").map(n => n[0]).join("");
-        document.getElementById("prevAvatar").textContent = initials;
-        document.getElementById("prevName").textContent = patient.name;
-        document.getElementById("prevIdSub").textContent = `Patient ID: ${patient.patient_id}`;
-        
-        const badge = document.getElementById("prevBadge");
-        badge.textContent = `${patient.policy_status} Policy`;
-        badge.className = `preview-badge-status ${patient.policy_status.toLowerCase()}`;
+          const initials = p.patient_name.split(" ").map(n => n[0]).join("");
+          document.getElementById("prevAvatar").textContent = initials;
+          document.getElementById("prevName").textContent = p.patient_name;
+          document.getElementById("prevIdSub").textContent = `Policy: ${p.policy_id} &bull; ${p.policy_type}`;
 
-        document.getElementById("prevAvailable").textContent = formatCurrency(patient.coverage_limit);
+          const badge = document.getElementById("prevBadge");
+          badge.textContent = `${p.policy_status} Policy`;
+          badge.className = `preview-badge-status ${p.policy_status.toLowerCase()}`;
 
-        onClaimAmountInput();
-      } else {
+          document.getElementById("prevAvailable").textContent = formatCurrency(p.remaining_coverage);
+
+          onClaimAmountInput();
+        } else {
+          previewBox.style.display = "none";
+          hideLiveWarning();
+        }
+      } catch (err) {
         previewBox.style.display = "none";
         hideLiveWarning();
       }
     }
 
     function onClaimAmountInput() {
-      const pId = document.getElementById("patientId").value.trim().toUpperCase();
+      const pId = document.getElementById("policyId").value.trim().toUpperCase();
       const amt = parseFloat(document.getElementById("claimAmount").value);
-      const patient = cachedPatients.find(p => p.patient_id === pId);
+      const policy = cachedPolicies.find(p => p.policy_id === pId);
 
       const warningBar = document.getElementById("liveWarningBar");
       const warningText = document.getElementById("liveWarningText");
       const projectedCalc = document.getElementById("prevProjected");
 
-      if (!patient) {
+      if (!policy) {
         hideLiveWarning();
         return;
       }
 
-      // Check Rule 1 live
-      if (patient.policy_status !== "Active") {
+      if (policy.policy_status !== "Active") {
         warningBar.style.display = "flex";
         warningBar.className = "live-warning-bar danger";
         warningText.textContent = "Policy is Inactive. This claim will be rejected under Rule 1.";
@@ -2231,7 +2162,7 @@
       }
 
       if (!isNaN(amt) && amt > 0) {
-        const remaining = patient.coverage_limit - amt;
+        const remaining = policy.remaining_coverage - amt;
 
         if (remaining < 0) {
           warningBar.style.display = "flex";
@@ -2246,7 +2177,7 @@
         }
       } else {
         hideLiveWarning();
-        projectedCalc.textContent = `Available: ${formatCurrency(patient.coverage_limit)}`;
+        projectedCalc.textContent = `Available: ${formatCurrency(policy.remaining_coverage)}`;
         projectedCalc.style.color = "var(--text-main)";
       }
     }
@@ -2256,7 +2187,7 @@
       if (warningBar) warningBar.style.display = "none";
     }
 
-    // Submit Claim via Fetch API
+    // 4. Submit Claim to Backend (POST /api/claims/process)
     async function handleClaimSubmission(e) {
       e.preventDefault();
 
@@ -2264,17 +2195,18 @@
       const btnLabel = submitBtn.querySelector(".btn-label");
       const spinner = submitBtn.querySelector(".spinner");
 
-      const patientId = document.getElementById("patientId").value.trim().toUpperCase();
+      const policyId = document.getElementById("policyId").value.trim().toUpperCase();
       const hospitalName = document.getElementById("hospitalName").value.trim();
+      const claimCategory = document.getElementById("claimCategory").value;
       const claimAmount = parseFloat(document.getElementById("claimAmount").value);
 
-      if (!patientId || !hospitalName || isNaN(claimAmount) || claimAmount <= 0) {
-        alert("Please enter a valid Patient ID, Provider Name, and Claim Amount.");
+      if (!policyId || !hospitalName || isNaN(claimAmount) || claimAmount <= 0) {
+        alert("Please enter a valid Policy ID, Healthcare Provider, and Claim Amount.");
         return;
       }
 
       submitBtn.disabled = true;
-      btnLabel.textContent = "Adjudicating Rules...";
+      btnLabel.textContent = "Executing Rule Adjudication...";
       spinner.style.display = "inline-block";
 
       try {
@@ -2282,8 +2214,9 @@
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
-            patient_id: patientId,
+            policy_id: policyId,
             hospital_name: hospitalName,
+            claim_category: claimCategory,
             claim_amount: claimAmount
           })
         });
@@ -2291,25 +2224,28 @@
         const result = await response.json();
 
         if (!response.ok && !result.rule_evaluations) {
-          throw new Error(result.error || "Processing failed.");
+          throw new Error(result.error || "Adjudication failed.");
         }
 
         latestResult = result;
 
-        // Render Decision Deck
+        // Render decision deck
         renderDecisionDeck(result);
 
-        // Show toast
+        // Toast feedback
         if (result.status === "Approved") {
-          showToast(`Claim #${result.claim_id} Approved! ${formatCurrency(result.claim_amount)}`, "success");
+          showToast(`Claim #${result.claim_id} Approved! Settled ${formatCurrency(result.claim_amount)}`, "success");
         } else {
           showToast(`Claim Rejected: ${result.remarks}`, "error");
         }
 
-        // Refresh live stats and tables
+        // Immediately refresh live tables and stats from database
         loadStats();
-        loadPatients();
+        loadPolicies();
         loadClaims();
+
+        // Update live preview card if same policy
+        queryPolicyFromBackend(policyId);
 
       } catch (error) {
         console.error("Submission error:", error);
@@ -2321,7 +2257,7 @@
       }
     }
 
-    // Render the Dynamic Right-hand Decision Deck
+    // 5. Render Decision Deck
     function renderDecisionDeck(res) {
       const idleState = document.getElementById("idleState");
       const resultContainer = document.getElementById("resultContainer");
@@ -2331,7 +2267,6 @@
 
       const isApproved = (res.status === "Approved");
 
-      // Banner styling
       const banner = document.getElementById("decisionBanner");
       const icon = document.getElementById("bannerIcon");
       const title = document.getElementById("bannerTitle");
@@ -2342,15 +2277,14 @@
       icon.textContent = isApproved ? "✓" : "✕";
       title.textContent = isApproved ? "CLAIM APPROVED & SETTLED" : "CLAIM REJECTED BY ENGINE";
       sub.textContent = isApproved 
-        ? "All policy business rules passed. Settlement applied." 
-        : "Failed one or more business rules. Zero deduction applied.";
+        ? "All policy business rules passed. Settlement committed to database." 
+        : "Failed business rules verification. Zero coverage deducted.";
       tag.textContent = res.claim_id ? `#CLAIM-${res.claim_id}` : "AUDIT ENTRY";
 
-      // Overview details
-      document.getElementById("resPatientName").textContent = `${res.patient_name || "Unknown"} (${res.patient_id})`;
+      document.getElementById("resPatientName").textContent = `${res.patient_name || "Unknown"} (${res.policy_id})`;
       document.getElementById("resAmount").textContent = formatCurrency(res.claim_amount);
 
-      // Rule 1 Step
+      // Rule 1
       const r1 = res.rule_evaluations?.rule_1_policy_active;
       const step1 = document.getElementById("pipeStep1");
       const step1Ind = document.getElementById("step1Indicator");
@@ -2369,7 +2303,7 @@
         step1Desc.textContent = r1?.message || "Policy is Inactive.";
       }
 
-      // Rule 2 Step
+      // Rule 2
       const r2 = res.rule_evaluations?.rule_2_within_limit;
       const step2 = document.getElementById("pipeStep2");
       const step2Ind = document.getElementById("step2Indicator");
@@ -2388,7 +2322,7 @@
         step2Desc.textContent = r2?.message || "Claim exceeds coverage limit.";
       }
 
-      // Step 3 Settlement Commitment
+      // Step 3 Settlement
       const step3 = document.getElementById("pipeStep3");
       const step3Ind = document.getElementById("step3Indicator");
       const step3Badge = document.getElementById("step3Badge");
@@ -2398,26 +2332,23 @@
         step3.className = "step-item passed";
         step3Ind.textContent = "✓";
         step3Badge.textContent = "COMMITTED";
-        step3Desc.textContent = "SQLite database updated with new coverage balance";
+        step3Desc.textContent = "SQLite coverage_used increased & audit log created";
       } else {
         step3.className = "step-item failed";
         step3Ind.textContent = "—";
         step3Badge.textContent = "SKIPPED";
-        step3Desc.textContent = "Coverage balance left unmodified in database";
+        step3Desc.textContent = "Coverage balance left unmodified; rejection audit logged";
       }
 
-      // Ledger Diff
+      // Reconciliation ledger
       document.getElementById("resPriorLimit").textContent = formatCurrency(res.previous_coverage);
       document.getElementById("resDeduction").textContent = isApproved 
         ? `-${formatCurrency(res.claim_amount)}` 
         : "$0.00";
       document.getElementById("resNewLimit").textContent = formatCurrency(res.remaining_coverage);
-
-      // Remarks
       document.getElementById("resRemarks").textContent = res.remarks || "--";
     }
 
-    // Copy JSON to clipboard
     function copyCurrentResultJson() {
       if (!latestResult) return;
       navigator.clipboard.writeText(JSON.stringify(latestResult, null, 2))
@@ -2425,59 +2356,54 @@
         .catch(() => alert("Failed to copy JSON."));
     }
 
-    // Reset Studio Form
     function resetStudioForm() {
       document.getElementById("claimForm").reset();
       document.getElementById("patientPreviewBox").style.display = "none";
       hideLiveWarning();
-      document.getElementById("patientId").focus();
+      document.getElementById("policyId").focus();
     }
 
-    // Select a patient directly from the Table
-    function selectPatientFromTable(pId) {
-      document.getElementById("patientId").value = pId;
-      onPatientIdInput();
+    function selectPolicyFromTable(pId) {
+      document.getElementById("policyId").value = pId;
+      queryPolicyFromBackend(pId);
       document.getElementById("hospitalName").focus();
       window.scrollTo({ top: 120, behavior: "smooth" });
     }
 
-    // Fetch and populate registered patients
-    async function loadPatients(notify = false) {
-      const tbody = document.getElementById("patientsTableBody");
+    // 6. Fetch Policies Table: GET /api/policies
+    async function loadPolicies(notify = false) {
+      const tbody = document.getElementById("policiesTableBody");
       try {
-        const response = await fetch("/api/patients");
-        const data = await response.json();
+        const res = await fetch("/api/policies");
+        const data = await res.json();
 
-        if (data.success && data.patients) {
-          cachedPatients = data.patients;
-          renderPatientsTable(cachedPatients);
-          if (notify) showToast("Patient registry refreshed");
+        if (data.success && data.policies) {
+          cachedPolicies = data.policies;
+          renderPoliciesTable(cachedPolicies);
+          if (notify) showToast("Policy database refreshed from SQLite");
         }
       } catch (err) {
-        console.error("Failed to load patients:", err);
+        console.error("Failed to load policies:", err);
       }
     }
 
-    function renderPatientsTable(list) {
-      const tbody = document.getElementById("patientsTableBody");
+    function renderPoliciesTable(list) {
+      const tbody = document.getElementById("policiesTableBody");
       if (!tbody) return;
 
       if (!list || list.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="6" style="text-align: center; color: var(--text-muted); padding: 1.5rem;">No matching patients found.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: var(--text-muted); padding: 1.5rem;">No matching policies found.</td></tr>`;
         return;
       }
 
       tbody.innerHTML = list.map(p => {
-        const rem = Number(p.coverage_limit);
-        const init = Number(p.initial_coverage);
-        const pct = init > 0 ? Math.max(0, Math.min(100, Math.round((rem / init) * 100))) : 0;
-
+        const pct = p.remaining_percent;
         let fillClass = "";
         if (pct <= 20) fillClass = "danger";
         else if (pct <= 50) fillClass = "warning";
 
         const isActive = (p.policy_status === "Active");
-        const initials = p.name.split(" ").map(n => n[0]).join("");
+        const initials = p.patient_name.split(" ").map(n => n[0]).join("");
 
         return `
           <tr>
@@ -2485,19 +2411,20 @@
               <div class="cell-avatar-flex">
                 <div class="table-avatar">${initials}</div>
                 <div>
-                  <span class="cell-primary-text">${p.name}</span>
-                  <span class="cell-sub-text mono-val">${p.patient_id}</span>
+                  <span class="cell-primary-text">${p.patient_name}</span>
+                  <span class="cell-sub-text mono-val">${p.policy_id}</span>
                 </div>
               </div>
             </td>
+            <td><strong>${p.policy_type}</strong></td>
             <td>
               <span class="status-pill ${isActive ? "active" : "inactive"}">
                 <span class="dot-indicator"></span>
                 ${p.policy_status}
               </span>
             </td>
-            <td><strong class="mono-val">${formatCurrency(p.coverage_limit)}</strong></td>
-            <td><span class="mono-val" style="color: var(--text-muted);">${formatCurrency(p.initial_coverage)}</span></td>
+            <td><strong class="mono-val" style="color: var(--primary);">${formatCurrency(p.remaining_coverage)}</strong></td>
+            <td><span class="mono-val" style="color: var(--text-muted);">${formatCurrency(p.coverage_limit)}</span></td>
             <td>
               <div class="gauge-wrapper">
                 <div class="gauge-meta">
@@ -2509,7 +2436,7 @@
               </div>
             </td>
             <td>
-              <button type="button" class="table-action-btn" onclick="selectPatientFromTable('${p.patient_id}')">
+              <button type="button" class="table-action-btn" onclick="selectPolicyFromTable('${p.policy_id}')">
                 + File Claim
               </button>
             </td>
@@ -2518,31 +2445,32 @@
       }).join("");
     }
 
-    function filterPatientsTable() {
-      const query = document.getElementById("patientSearchInput").value.trim().toLowerCase();
+    function filterPoliciesTable() {
+      const query = document.getElementById("policySearchInput").value.trim().toLowerCase();
       if (!query) {
-        renderPatientsTable(cachedPatients);
+        renderPoliciesTable(cachedPolicies);
         return;
       }
-      const filtered = cachedPatients.filter(p => 
-        p.patient_id.toLowerCase().includes(query) ||
-        p.name.toLowerCase().includes(query) ||
+      const filtered = cachedPolicies.filter(p => 
+        p.policy_id.toLowerCase().includes(query) ||
+        p.patient_name.toLowerCase().includes(query) ||
+        p.policy_type.toLowerCase().includes(query) ||
         p.policy_status.toLowerCase().includes(query)
       );
-      renderPatientsTable(filtered);
+      renderPoliciesTable(filtered);
     }
 
-    // Fetch and populate claims log
+    // 7. Fetch Claims Table: GET /api/claims
     async function loadClaims(notify = false) {
       const tbody = document.getElementById("claimsTableBody");
       try {
-        const response = await fetch("/api/claims");
-        const data = await response.json();
+        const res = await fetch("/api/claims");
+        const data = await res.json();
 
         if (data.success && data.claims) {
           cachedClaims = data.claims;
           renderClaimsTable(cachedClaims);
-          if (notify) showToast("Claims transaction log refreshed");
+          if (notify) showToast("Claims transaction log refreshed from SQLite");
         }
       } catch (err) {
         console.error("Failed to load claims:", err);
@@ -2554,7 +2482,7 @@
       if (!tbody) return;
 
       if (!list || list.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="8" style="text-align: center; color: var(--text-muted); padding: 1.5rem;">No claims recorded yet.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="9" style="text-align: center; color: var(--text-muted); padding: 1.5rem;">No claims recorded yet.</td></tr>`;
         return;
       }
 
@@ -2566,10 +2494,11 @@
             <td><strong class="mono-val">#${c.claim_id}</strong></td>
             <td style="font-size: 0.78rem; color: var(--text-muted); white-space: nowrap;">${c.created_at}</td>
             <td>
-              <span class="cell-primary-text">${c.patient_name || "Unknown"}</span>
-              <span class="cell-sub-text mono-val">${c.patient_id}</span>
+              <span class="cell-primary-text">${c.patient_name}</span>
+              <span class="cell-sub-text mono-val">${c.policy_id}</span>
             </td>
             <td><strong>${c.hospital_name}</strong></td>
+            <td><span style="font-size: 0.8rem; color: var(--text-muted);">${c.claim_category || "General"}</span></td>
             <td><strong class="mono-val" style="color: ${isApproved ? 'var(--emerald)' : 'var(--text-main)'};">${formatCurrency(c.claim_amount)}</strong></td>
             <td>
               <span class="status-pill ${isApproved ? "approved" : "rejected"}">
@@ -2577,7 +2506,7 @@
                 ${c.status}
               </span>
             </td>
-            <td style="font-size: 0.8rem; max-width: 280px; line-height: 1.35; color: var(--text-secondary);">
+            <td style="font-size: 0.8rem; max-width: 260px; line-height: 1.35; color: var(--text-secondary);">
               ${c.remarks}
             </td>
             <td>
@@ -2603,7 +2532,7 @@
       if (query) {
         filtered = filtered.filter(c => 
           (c.patient_name && c.patient_name.toLowerCase().includes(query)) ||
-          c.patient_id.toLowerCase().includes(query) ||
+          c.policy_id.toLowerCase().includes(query) ||
           c.hospital_name.toLowerCase().includes(query) ||
           c.remarks.toLowerCase().includes(query)
         );
@@ -2612,53 +2541,86 @@
       renderClaimsTable(filtered);
     }
 
-    // Modal Details Handler
-    function openClaimModalById(claimId) {
-      const claim = cachedClaims.find(c => c.claim_id === claimId);
-      if (!claim) return;
+    // 8. Open Claim Modal with Real Audit Logs from /api/claims/<id>
+    async function openClaimModalById(claimId) {
+      try {
+        const res = await fetch(`/api/claims/${claimId}`);
+        const data = await res.json();
+        if (!data.success || !data.claim) {
+          alert("Could not load claim details.");
+          return;
+        }
 
-      const isApp = (claim.status === "Approved");
-      document.getElementById("modalTitle").textContent = `Claim #${claim.claim_id} Adjudication Slip`;
-      document.getElementById("modalSubtitle").textContent = `Recorded: ${claim.created_at}`;
+        const claim = data.claim;
+        const auditLogs = data.audit_logs || [];
+        const isApp = (claim.status === "Approved");
 
-      document.getElementById("modalBody").innerHTML = `
-        <div style="text-align: center; margin-bottom: 1.25rem;">
-          <span class="status-pill ${isApp ? 'approved' : 'rejected'}" style="font-size: 0.9rem; padding: 0.4rem 1rem;">
-            ${isApp ? '✓ APPROVED & SETTLED' : '✕ REJECTED BY ENGINE'}
-          </span>
-        </div>
+        document.getElementById("modalTitle").textContent = `Claim #${claim.claim_id} Adjudication Slip`;
+        document.getElementById("modalSubtitle").textContent = `Recorded: ${claim.created_at} &bull; SQLite Verified`;
 
-        <div class="modal-grid-2">
-          <div class="modal-item-box">
-            <span>Patient ID</span>
-            <strong>${claim.patient_id}</strong>
+        const logsHtml = auditLogs.length > 0
+          ? auditLogs.map(l => `
+              <div style="font-size: 0.78rem; padding: 0.4rem 0; border-bottom: 1px solid var(--border-subtle);">
+                <div style="display: flex; justify-content: space-between;">
+                  <strong style="color: var(--primary);">${l.event_type}</strong>
+                  <span style="color: var(--text-muted);">${l.timestamp}</span>
+                </div>
+                <div style="color: var(--text-secondary); margin-top: 2px;">${l.event_details}</div>
+              </div>
+            `).join("")
+          : `<div style="font-size: 0.8rem; color: var(--text-muted);">No audit events found.</div>`;
+
+        document.getElementById("modalBody").innerHTML = `
+          <div style="text-align: center; margin-bottom: 1.25rem;">
+            <span class="status-pill ${isApp ? 'approved' : 'rejected'}" style="font-size: 0.9rem; padding: 0.45rem 1.15rem;">
+              ${isApp ? '✓ APPROVED & SETTLED IN LEDGER' : '✕ REJECTED BY BUSINESS RULES'}
+            </span>
           </div>
-          <div class="modal-item-box">
-            <span>Patient Name</span>
-            <strong>${claim.patient_name || "Unknown"}</strong>
-          </div>
-          <div class="modal-item-box">
-            <span>Healthcare Provider</span>
-            <strong>${claim.hospital_name}</strong>
-          </div>
-          <div class="modal-item-box">
-            <span>Claim Amount</span>
-            <strong class="mono-val" style="color: var(--primary);">${formatCurrency(claim.claim_amount)}</strong>
-          </div>
-        </div>
 
-        <div style="background: #f8fafc; border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.9rem; margin-bottom: 1.25rem;">
-          <span style="font-size: 0.72rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 0.3rem;">Adjudication Audit Notes</span>
-          <p style="font-size: 0.86rem; color: var(--text-secondary); line-height: 1.45;">${claim.remarks}</p>
-        </div>
+          <div class="modal-grid-2">
+            <div class="modal-item-box">
+              <span>Policy Holder</span>
+              <strong>${claim.patient_name} (${claim.policy_id})</strong>
+            </div>
+            <div class="modal-item-box">
+              <span>Policy Plan Tier</span>
+              <strong>${claim.policy_type} (${claim.policy_status})</strong>
+            </div>
+            <div class="modal-item-box">
+              <span>Healthcare Provider</span>
+              <strong>${claim.hospital_name}</strong>
+            </div>
+            <div class="modal-item-box">
+              <span>Claim Amount</span>
+              <strong class="mono-val" style="color: var(--primary); font-size: 1.1rem;">${formatCurrency(claim.claim_amount)}</strong>
+            </div>
+          </div>
 
-        <div style="display: flex; gap: 0.6rem;">
-          <button type="button" class="submit-btn" style="padding: 0.65rem;" onclick="window.print()">🖨️ Print Voucher</button>
-          <button type="button" class="nav-btn" style="background: #0f172a; color: #fff; padding: 0.65rem 1.25rem;" onclick="closeModal()">Close</button>
-        </div>
-      `;
+          <div style="background: #f8fafc; border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.9rem; margin-bottom: 1.15rem;">
+            <span style="font-size: 0.72rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 0.3rem;">Adjudication Audit Notes</span>
+            <p style="font-size: 0.86rem; color: var(--text-secondary); line-height: 1.45;">${claim.remarks}</p>
+          </div>
 
-      document.getElementById("claimModal").style.display = "flex";
+          <!-- Real Audit Trail -->
+          <div style="background: #ffffff; border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); padding: 0.9rem; margin-bottom: 1.25rem;">
+            <span style="font-size: 0.72rem; font-weight: 800; color: var(--text-muted); text-transform: uppercase; display: block; margin-bottom: 0.5rem;">
+              Append-Only Audit Trail (SQLite Ledger)
+            </span>
+            <div style="max-height: 150px; overflow-y: auto;">
+              ${logsHtml}
+            </div>
+          </div>
+
+          <div style="display: flex; gap: 0.6rem;">
+            <button type="button" class="submit-btn" style="padding: 0.65rem;" onclick="window.print()">🖨️ Print Adjudication Voucher</button>
+            <button type="button" class="nav-btn" style="background: #0f172a; color: #fff; padding: 0.65rem 1.25rem;" onclick="closeModal()">Close</button>
+          </div>
+        `;
+
+        document.getElementById("claimModal").style.display = "flex";
+      } catch (err) {
+        alert("Failed to load claim detail from database: " + err.message);
+      }
     }
 
     function openModalForLatestClaim() {
@@ -2679,9 +2641,9 @@
       }
     }
 
-    // Database Reset
+    // 9. Reset Database: POST /api/reset
     async function handleDatabaseReset() {
-      if (!confirm("Are you sure you want to reset the database to pristine factory seed values?")) {
+      if (!confirm("Are you sure you want to reset the database to initial enterprise seed records?")) {
         return;
       }
 
@@ -2689,43 +2651,19 @@
         const res = await fetch("/api/reset", { method: "POST" });
         const data = await res.json();
         if (data.success) {
-          showToast("Database successfully restored to seed data!");
+          showToast("Database successfully restored to pristine seed data!");
           
           document.getElementById("idleState").style.display = "flex";
           document.getElementById("resultContainer").style.display = "none";
           resetStudioForm();
           
           loadStats();
-          loadPatients();
+          loadPolicies();
           loadClaims();
         }
       } catch (err) {
         alert("Failed to reset database: " + err.message);
       }
-    }
-
-    // Quick Automated Demo Simulation
-    async function runQuickDemoSimulation() {
-      showToast("Starting Automated Demo Batch...", "success");
-
-      const demoSteps = [
-        { pId: "P101", hosp: "General Medical Center", amt: 50000 },
-        { pId: "P102", hosp: "Apollo Specialty", amt: 25000 },
-        { pId: "P103", hosp: "St. Mark Hospital", amt: 75000 }
-      ];
-
-      for (let i = 0; i < demoSteps.length; i++) {
-        const step = demoSteps[i];
-        applyPreset(step.pId, step.hosp, step.amt);
-        await new Promise(r => setTimeout(r, 600));
-        
-        // Trigger submit
-        const submitEvent = new Event("submit", { cancelable: true });
-        document.getElementById("claimForm").dispatchEvent(submitEvent);
-        await new Promise(r => setTimeout(r, 1200));
-      }
-
-      showToast("Demo batch completed! Check KPI cards and Audit Log.", "success");
     }
   </script>
 </body>
